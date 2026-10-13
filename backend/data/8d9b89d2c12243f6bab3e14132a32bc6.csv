@@ -1,0 +1,501 @@
+customer_id,account_id,account_type,account_open_date,account_status,gender,age,state,pincode,customer_segment
+Cust100000,Acc900000,Savings,2018-04-13,Inactive,F,32.0,Delhi,279451.0,Sme
+Cust100001,Acc900001,Current,2018-08-18,Inactive,F,69.0,West Bengal,899550.0,Retail
+Cust100002,Acc900002,Recurring Deposit,2021-08-20,Active,M,47.0,Maharashtra,777568.0,Retail
+Cust100003,Acc900003,Checking,2020-02-24,Closed,F,26.0,West Bengal,237235.0,Corporate
+Cust100004,Acc900004,Fixed Deposit,2024-12-19,Inactive,M,22.0,Maharashtra,934794.0,Corporate
+Cust100005,Acc900005,Current,2024-04-12,Frozen,M,65.0,Rajasthan,664607.0,Corporate
+Cust100006,Acc900006,Recurring Deposit,2021-07-09,Frozen,F,64.0,Maharashtra,907451.0,Sme
+Cust100007,Acc900007,Savings,2024-04-02,Inactive,F,25.0,Maharashtra,801364.0,Sme
+Cust100008,Acc900008,Fixed Deposit,2024-08-21,Inactive,M,23.0,West Bengal,910004.0,Retail
+Cust100009,Acc900009,Current,2023-12-23,Inactive,M,22.0,Telangana,656711.0,Corporate
+Cust100010,Acc900010,Current,2021-06-09,Inactive,Other,64.0,Maharashtra,876039.0,Retail
+Cust100011,Acc900011,Checking,2020-09-09,Frozen,F,28.0,Karnataka,713762.0,Corporate
+Cust100012,Acc900012,Fixed Deposit,2021-09-27,Frozen,Other,72.0,Rajasthan,243139.0,Hni
+Cust100013,Acc900013,Savings,2021-03-04,Closed,F,55.0,Rajasthan,414012.0,Corporate
+Cust100014,Acc900014,Current,2022-10-31,Inactive,F,44.0,Karnataka,134985.0,Sme
+Cust100015,Acc900015,Fixed Deposit,2019-12-21,Frozen,F,52.0,Delhi,663658.0,Corporate
+Cust100016,Acc900016,Recurring Deposit,2019-09-25,Active,M,71.0,Rajasthan,573962.0,Hni
+Cust100017,Acc900017,Fixed Deposit,2018-05-08,Closed,M,72.0,Tamil Nadu,335137.0,Retail
+Cust100018,Acc900018,Current,2024-06-09,Closed,F,72.0,Maharashtra,321494.0,Sme
+Cust100019,Acc900019,Fixed Deposit,2022-10-30,Inactive,F,52.0,Telangana,757685.0,Retail
+Cust100020,Acc900020,Current,2021-01-30,Active,M,50.0,Gujarat,858889.0,Hni
+Cust100021,Acc900021,Current,2022-05-25,Closed,F,23.0,Karnataka,922471.0,Corporate
+Cust100022,Acc900022,Fixed Deposit,2021-02-28,Inactive,M,44.0,Rajasthan,977330.0,Retail
+Cust100023,Acc900023,Checking,2021-04-08,Frozen,M,47.0,Rajasthan,505426.0,Hni
+Cust100024,Acc900024,Savings,2022-10-05,Frozen,M,70.0,Rajasthan,242321.0,Retail
+Cust100025,Acc900025,Savings,2021-08-02,Inactive,F,22.0,Tamil Nadu,744274.0,Sme
+Cust100026,Acc900026,Checking,2024-10-14,Inactive,Other,54.0,Telangana,267082.0,Sme
+Cust100027,Acc900027,Savings,2019-01-04,Closed,M,33.0,Rajasthan,414353.0,Hni
+Cust100028,Acc900028,Recurring Deposit,2021-06-14,Closed,F,58.0,Telangana,687713.0,Sme
+Cust100029,Acc900029,Fixed Deposit,2021-11-14,Inactive,F,36.0,Karnataka,772464.0,Sme
+Cust100030,Acc900030,Checking,2019-04-07,Inactive,Other,47.0,Rajasthan,479358.0,Sme
+Cust100031,Acc900031,Recurring Deposit,2024-01-08,Active,F,72.0,Karnataka,860242.0,Sme
+Cust100032,Acc900032,Checking,2020-04-24,Active,M,20.0,Delhi,988283.0,Sme
+Cust100033,Acc900033,Current,2022-03-25,Inactive,F,20.0,Rajasthan,868367.0,Corporate
+Cust100034,Acc900034,Recurring Deposit,2018-08-29,Inactive,M,47.0,Maharashtra,497687.0,Sme
+Cust100035,Acc900035,Checking,2018-12-05,Active,M,59.0,Gujarat,812711.0,Sme
+Cust100036,Acc900036,Savings,2018-12-03,Closed,Other,63.0,Gujarat,782661.0,Sme
+Cust100037,Acc900037,Fixed Deposit,2021-07-10,Closed,F,38.0,Tamil Nadu,146448.0,Corporate
+Cust100038,Acc900038,Savings,2019-02-08,Closed,Other,65.0,Delhi,662968.0,Sme
+Cust100039,Acc900039,Current,2023-06-28,Inactive,M,38.0,West Bengal,388204.0,Sme
+Cust100040,Acc900040,Recurring Deposit,2023-09-24,Closed,M,35.0,Tamil Nadu,239136.0,Hni
+Cust100041,Acc900041,Fixed Deposit,2019-08-06,Frozen,M,58.0,Telangana,489906.0,Corporate
+Cust100042,Acc900042,Fixed Deposit,2019-01-09,Closed,F,31.0,Rajasthan,297810.0,Sme
+Cust100043,Acc900043,Fixed Deposit,2019-04-07,Active,F,56.0,Maharashtra,877722.0,Retail
+Cust100044,Acc900044,Savings,2019-11-03,Closed,M,51.0,Delhi,108356.0,Hni
+Cust100045,Acc900045,Fixed Deposit,2022-02-17,Inactive,M,67.0,Telangana,661957.0,Sme
+Cust100046,Acc900046,Savings,2019-01-06,Inactive,F,37.0,Rajasthan,393366.0,Retail
+Cust100047,Acc900047,Recurring Deposit,2018-03-21,Active,M,40.0,West Bengal,120896.0,Sme
+Cust100048,Acc900048,Checking,2021-10-27,Active,F,69.0,Telangana,213282.0,Retail
+Cust100049,Acc900049,Fixed Deposit,2023-07-13,Active,M,42.0,Delhi,794178.0,Hni
+Cust100050,Acc900050,Current,2018-12-02,Active,M,37.0,Karnataka,862422.0,Sme
+Cust100051,Acc900051,Current,2023-10-30,Active,M,18.0,Telangana,640299.0,Sme
+Cust100052,Acc900052,Checking,2023-11-18,Inactive,M,47.0,Delhi,522461.0,Sme
+Cust100053,Acc900053,Current,2019-03-19,Closed,M,35.0,Gujarat,447411.0,Sme
+Cust100054,Acc900054,Fixed Deposit,2018-08-08,Closed,F,57.0,Maharashtra,360909.0,Hni
+Cust100055,Acc900055,Recurring Deposit,2024-08-08,Frozen,Other,70.0,Delhi,922880.0,Sme
+Cust100056,Acc900056,Recurring Deposit,2020-04-06,Frozen,Other,36.0,Gujarat,385037.0,Corporate
+Cust100057,Acc900057,Savings,2019-06-27,Frozen,F,72.0,Rajasthan,522866.0,Hni
+Cust100058,Acc900058,Savings,2023-08-04,Inactive,M,49.0,Rajasthan,522461.0,Sme
+Cust100059,Acc900059,Recurring Deposit,2019-12-27,Active,F,64.0,Rajasthan,522461.0,Sme
+Cust100060,Acc900060,Recurring Deposit,2022-05-12,Closed,F,68.0,Gujarat,331942.0,Sme
+Cust100061,Acc900061,Recurring Deposit,2023-12-13,Inactive,M,70.0,Gujarat,660814.0,Sme
+Cust100062,Acc900062,Savings,2022-01-05,Frozen,M,68.0,Karnataka,259797.0,Hni
+Cust100063,Acc900063,Checking,2022-11-22,Inactive,Other,26.0,Delhi,345386.0,Sme
+Cust100064,Acc900064,Fixed Deposit,2023-02-06,Active,M,47.0,Maharashtra,863336.0,Retail
+Cust100065,Acc900065,Fixed Deposit,2019-11-30,Inactive,F,56.0,West Bengal,522461.0,Corporate
+Cust100066,Acc900066,Checking,2021-07-17,Inactive,M,27.0,Rajasthan,311505.0,Sme
+Cust100067,Acc900067,Recurring Deposit,2019-11-26,Closed,F,47.0,Maharashtra,376142.0,Sme
+Cust100068,Acc900068,Savings,2024-03-21,Closed,F,40.0,Karnataka,375617.0,Retail
+Cust100069,Acc900069,Current,2020-01-24,Inactive,M,44.0,Maharashtra,468145.0,Corporate
+Cust100070,Acc900070,Current,2021-12-25,Inactive,Other,49.0,Tamil Nadu,508783.0,Sme
+Cust100071,Acc900071,Checking,2019-06-22,Frozen,M,19.0,Karnataka,879015.0,Sme
+Cust100072,Acc900072,Checking,2021-04-01,Inactive,M,57.0,Telangana,799080.0,Hni
+Cust100073,Acc900073,Checking,2021-02-04,Closed,M,68.0,Maharashtra,481760.0,Sme
+Cust100074,Acc900074,Checking,2023-11-17,Active,F,53.0,West Bengal,287588.0,Retail
+Cust100075,Acc900075,Fixed Deposit,2022-10-16,Inactive,M,29.0,Delhi,414985.0,Sme
+Cust100076,Acc900076,Current,2022-11-14,Closed,M,25.0,Tamil Nadu,957915.0,Hni
+Cust100077,Acc900077,Savings,2020-09-22,Closed,M,73.0,Maharashtra,469007.0,Sme
+Cust100078,Acc900078,Savings,2020-11-21,Inactive,M,70.0,Maharashtra,741709.0,Hni
+Cust100079,Acc900079,Checking,2018-04-17,Frozen,Other,67.0,Maharashtra,249149.0,Retail
+Cust100080,Acc900080,Checking,2024-07-25,Closed,F,43.0,West Bengal,255457.0,Hni
+Cust100081,Acc900081,Recurring Deposit,2024-10-07,Frozen,Other,23.0,Delhi,317402.0,Sme
+Cust100082,Acc900082,Recurring Deposit,2020-05-19,Inactive,M,62.0,Telangana,417329.0,Retail
+Cust100083,Acc900083,Savings,2020-04-07,Frozen,M,19.0,Rajasthan,152906.0,Retail
+Cust100084,Acc900084,Checking,2024-09-07,Inactive,M,62.0,Rajasthan,457264.0,Retail
+Cust100085,Acc900085,Recurring Deposit,2020-08-25,Frozen,F,22.0,Gujarat,846348.0,Retail
+Cust100086,Acc900086,Checking,2023-04-30,Frozen,F,42.0,Rajasthan,592025.0,Sme
+Cust100087,Acc900087,Checking,2018-05-25,Closed,F,65.0,Gujarat,509018.0,Retail
+Cust100088,Acc900088,Current,2023-01-13,Closed,M,51.0,Rajasthan,179392.0,Retail
+Cust100089,Acc900089,Current,2019-10-26,Active,M,21.0,Delhi,994794.0,Sme
+Cust100090,Acc900090,Checking,2024-03-21,Inactive,M,60.0,Gujarat,817318.0,Hni
+Cust100091,Acc900091,Current,2018-09-16,Frozen,M,66.0,Telangana,665940.0,Sme
+Cust100092,Acc900092,Current,2018-08-06,Frozen,F,27.0,Maharashtra,216506.0,Retail
+Cust100093,Acc900093,Current,2024-10-08,Closed,F,58.0,Rajasthan,101429.0,Hni
+Cust100094,Acc900094,Current,2024-11-13,Inactive,M,31.0,Delhi,389346.0,Corporate
+Cust100095,Acc900095,Current,2022-09-03,Active,F,26.0,Rajasthan,580290.0,Hni
+Cust100096,Acc900096,Current,2023-04-26,Inactive,Other,66.0,Delhi,417960.0,Sme
+Cust100097,Acc900097,Savings,2018-01-28,Closed,M,35.0,Gujarat,473276.0,Sme
+Cust100098,Acc900098,Recurring Deposit,2020-03-04,Inactive,F,24.0,Tamil Nadu,422361.0,Sme
+Cust100099,Acc900099,Savings,2018-11-15,Active,M,66.0,Gujarat,429546.0,Hni
+Cust100100,Acc900100,Current,2024-04-01,Inactive,F,38.0,Rajasthan,287795.0,Sme
+Cust100101,Acc900101,Recurring Deposit,2024-12-27,Frozen,M,60.0,Maharashtra,755520.0,Sme
+Cust100102,Acc900102,Fixed Deposit,2021-12-09,Inactive,M,33.0,Telangana,521843.0,Corporate
+Cust100103,Acc900103,Savings,2023-10-16,Active,F,31.0,Maharashtra,609442.0,Hni
+Cust100104,Acc900104,Fixed Deposit,2022-01-28,Frozen,F,23.0,Delhi,347864.0,Sme
+Cust100105,Acc900105,Current,2021-05-17,Closed,M,66.0,Karnataka,721826.0,Retail
+Cust100106,Acc900106,Checking,2022-05-31,Frozen,M,74.0,Gujarat,847986.0,Sme
+Cust100107,Acc900107,Savings,2024-03-31,Active,M,33.0,Rajasthan,840255.0,Corporate
+Cust100108,Acc900108,Fixed Deposit,2021-12-31,Frozen,F,47.0,Delhi,731548.0,Hni
+Cust100109,Acc900109,Savings,2018-03-26,Active,F,67.0,Maharashtra,635456.0,Corporate
+Cust100110,Acc900110,Current,2020-11-09,Active,M,50.0,Tamil Nadu,556957.0,Sme
+Cust100111,Acc900111,Fixed Deposit,2022-09-25,Inactive,M,75.0,Rajasthan,985555.0,Corporate
+Cust100112,Acc900112,Checking,2019-12-11,Frozen,F,49.0,Gujarat,106907.0,Sme
+Cust100113,Acc900113,Savings,2020-12-25,Inactive,Other,44.0,Telangana,853800.0,Sme
+Cust100114,Acc900114,Savings,2023-09-27,Inactive,M,39.0,Rajasthan,613321.0,Sme
+Cust100115,Acc900115,Fixed Deposit,2019-06-14,Active,F,51.0,Maharashtra,564620.0,Sme
+Cust100116,Acc900116,Recurring Deposit,2021-06-19,Closed,M,59.0,Delhi,532876.0,Retail
+Cust100117,Acc900117,Checking,2020-09-08,Inactive,M,49.0,Karnataka,832356.0,Retail
+Cust100118,Acc900118,Checking,2024-11-05,Closed,M,38.0,Maharashtra,961010.0,Hni
+Cust100119,Acc900119,Recurring Deposit,2020-03-04,Closed,F,61.0,Rajasthan,125190.0,Sme
+Cust100120,Acc900120,Current,2018-08-11,Inactive,Other,33.0,Rajasthan,566222.0,Retail
+Cust100121,Acc900121,Checking,2021-06-30,Active,M,59.0,Tamil Nadu,303846.0,Retail
+Cust100122,Acc900122,Current,2019-12-15,Closed,F,64.0,Rajasthan,287693.0,Sme
+Cust100123,Acc900123,Fixed Deposit,2021-01-04,Frozen,M,68.0,Gujarat,894617.0,Sme
+Cust100124,Acc900124,Checking,2020-07-18,Frozen,F,48.0,West Bengal,791609.0,Sme
+Cust100125,Acc900125,Checking,2021-08-31,Frozen,M,25.0,Delhi,857501.0,Sme
+Cust100126,Acc900126,Current,2018-11-10,Inactive,M,67.0,Delhi,423301.0,Hni
+Cust100127,Acc900127,Checking,2020-10-19,Frozen,Other,30.0,Delhi,738093.0,Retail
+Cust100128,Acc900128,Checking,2018-03-28,Frozen,M,25.0,Rajasthan,311184.0,Retail
+Cust100129,Acc900129,Fixed Deposit,2019-11-19,Frozen,M,50.0,Telangana,782524.0,Sme
+Cust100130,Acc900130,Savings,2022-01-20,Inactive,F,19.0,Gujarat,492850.0,Sme
+Cust100131,Acc900131,Fixed Deposit,2024-05-11,Frozen,F,21.0,Rajasthan,790881.0,Corporate
+Cust100132,Acc900132,Savings,2022-01-15,Inactive,M,65.0,Telangana,852293.0,Retail
+Cust100133,Acc900133,Checking,2020-11-27,Frozen,M,25.0,Tamil Nadu,674559.0,Corporate
+Cust100134,Acc900134,Fixed Deposit,2018-10-22,Active,M,36.0,Rajasthan,225829.0,Corporate
+Cust100135,Acc900135,Savings,2024-07-31,Inactive,M,48.0,Rajasthan,648055.0,Sme
+Cust100136,Acc900136,Savings,2020-08-29,Inactive,M,37.0,Rajasthan,465848.0,Retail
+Cust100137,Acc900137,Checking,2021-07-26,Active,M,69.0,Maharashtra,276718.0,Corporate
+Cust100138,Acc900138,Savings,2022-09-28,Frozen,M,41.0,West Bengal,240173.0,Retail
+Cust100139,Acc900139,Checking,2023-05-18,Active,F,25.0,Gujarat,522461.0,Corporate
+Cust100140,Acc900140,Checking,2020-06-27,Closed,Other,21.0,Tamil Nadu,301019.0,Corporate
+Cust100141,Acc900141,Current,2023-01-11,Inactive,F,45.0,Telangana,839730.0,Corporate
+Cust100142,Acc900142,Current,2018-08-23,Inactive,F,70.0,Rajasthan,522056.0,Sme
+Cust100143,Acc900143,Fixed Deposit,2022-04-22,Inactive,M,18.0,Telangana,188923.0,Retail
+Cust100144,Acc900144,Recurring Deposit,2020-01-13,Closed,F,75.0,Telangana,240082.0,Hni
+Cust100145,Acc900145,Fixed Deposit,2019-08-14,Inactive,M,44.0,Rajasthan,969812.0,Sme
+Cust100146,Acc900146,Fixed Deposit,2019-10-05,Frozen,Other,51.0,Karnataka,624514.0,Corporate
+Cust100147,Acc900147,Current,2022-07-27,Active,F,50.0,Karnataka,470533.0,Sme
+Cust100148,Acc900148,Fixed Deposit,2020-11-14,Frozen,M,26.0,Delhi,733727.0,Hni
+Cust100149,Acc900149,Recurring Deposit,2019-09-30,Inactive,M,31.0,Gujarat,857371.0,Hni
+Cust100150,Acc900150,Savings,2020-06-14,Active,F,44.0,Rajasthan,220063.0,Corporate
+Cust100151,Acc900151,Fixed Deposit,2018-02-01,Inactive,Other,50.0,Tamil Nadu,522461.0,Sme
+Cust100152,Acc900152,Current,2020-02-04,Inactive,F,32.0,Rajasthan,326813.0,Corporate
+Cust100153,Acc900153,Checking,2018-12-08,Closed,F,26.0,Tamil Nadu,176168.0,Corporate
+Cust100154,Acc900154,Savings,2021-07-28,Inactive,F,47.0,Rajasthan,772239.0,Corporate
+Cust100155,Acc900155,Savings,2019-07-23,Frozen,M,73.0,Rajasthan,428580.0,Corporate
+Cust100156,Acc900156,Checking,2020-06-15,Inactive,Other,46.0,Delhi,155718.0,Sme
+Cust100157,Acc900157,Current,2020-07-16,Frozen,M,43.0,Karnataka,365852.0,Sme
+Cust100158,Acc900158,Current,2021-09-28,Active,M,72.0,Rajasthan,418395.0,Corporate
+Cust100159,Acc900159,Savings,2020-06-09,Frozen,Other,25.0,Telangana,548443.0,Hni
+Cust100160,Acc900160,Fixed Deposit,2018-12-29,Frozen,F,37.0,Rajasthan,522461.0,Retail
+Cust100161,Acc900161,Fixed Deposit,2023-06-05,Closed,F,71.0,Telangana,924911.0,Hni
+Cust100162,Acc900162,Fixed Deposit,2023-04-17,Inactive,M,54.0,Tamil Nadu,477027.0,Sme
+Cust100163,Acc900163,Checking,2023-12-04,Active,M,31.0,West Bengal,944797.0,Corporate
+Cust100164,Acc900164,Recurring Deposit,2023-05-16,Frozen,F,20.0,Delhi,670054.0,Sme
+Cust100165,Acc900165,Fixed Deposit,2021-05-24,Inactive,Other,36.0,Rajasthan,127254.0,Corporate
+Cust100166,Acc900166,Recurring Deposit,2022-11-13,Closed,M,65.0,Rajasthan,167154.0,Corporate
+Cust100167,Acc900167,Fixed Deposit,2019-06-06,Inactive,F,27.0,Tamil Nadu,780748.0,Corporate
+Cust100168,Acc900168,Recurring Deposit,2019-05-12,Active,M,56.0,Delhi,135730.0,Sme
+Cust100169,Acc900169,Recurring Deposit,2023-12-09,Active,M,40.0,Karnataka,745374.0,Sme
+Cust100170,Acc900170,Current,2021-01-26,Inactive,M,74.0,Delhi,932776.0,Sme
+Cust100171,Acc900171,Savings,2020-10-04,Inactive,F,73.0,Tamil Nadu,607236.0,Sme
+Cust100172,Acc900172,Current,2021-01-02,Inactive,M,72.0,Maharashtra,416110.0,Retail
+Cust100173,Acc900173,Savings,2021-01-20,Closed,F,68.0,West Bengal,599967.0,Sme
+Cust100174,Acc900174,Savings,2024-04-16,Inactive,F,49.0,Karnataka,408515.0,Retail
+Cust100175,Acc900175,Checking,2021-04-03,Inactive,M,69.0,West Bengal,375710.0,Retail
+Cust100176,Acc900176,Current,2024-06-15,Frozen,M,69.0,Telangana,883945.0,Corporate
+Cust100177,Acc900177,Recurring Deposit,2021-06-25,Inactive,Other,41.0,Karnataka,564937.0,Corporate
+Cust100178,Acc900178,Checking,2018-01-14,Inactive,Other,40.0,Delhi,320958.0,Sme
+Cust100179,Acc900179,Recurring Deposit,2020-02-03,Inactive,M,55.0,Rajasthan,415183.0,Corporate
+Cust100180,Acc900180,Savings,2021-06-20,Inactive,F,47.0,West Bengal,297101.0,Sme
+Cust100181,Acc900181,Fixed Deposit,2020-01-07,Closed,M,37.0,Telangana,728441.0,Sme
+Cust100182,Acc900182,Savings,2024-02-02,Closed,Other,40.0,Rajasthan,355592.0,Sme
+Cust100183,Acc900183,Current,2020-01-31,Active,Other,20.0,Tamil Nadu,692332.0,Hni
+Cust100184,Acc900184,Checking,2022-03-18,Inactive,M,56.0,Rajasthan,488283.0,Sme
+Cust100185,Acc900185,Recurring Deposit,2023-09-26,Closed,F,28.0,Delhi,484265.0,Sme
+Cust100186,Acc900186,Checking,2020-12-19,Frozen,M,62.0,Tamil Nadu,605468.0,Hni
+Cust100187,Acc900187,Current,2020-07-09,Closed,Other,27.0,Delhi,919370.0,Sme
+Cust100188,Acc900188,Fixed Deposit,2019-04-22,Inactive,M,30.0,Tamil Nadu,301225.0,Sme
+Cust100189,Acc900189,Current,2023-10-17,Closed,M,68.0,Maharashtra,770699.0,Sme
+Cust100190,Acc900190,Savings,2023-04-17,Inactive,F,22.0,Delhi,685410.0,Sme
+Cust100191,Acc900191,Recurring Deposit,2023-04-03,Frozen,M,30.0,West Bengal,311499.0,Corporate
+Cust100192,Acc900192,Current,2018-04-22,Frozen,F,46.0,Maharashtra,263324.0,Retail
+Cust100193,Acc900193,Current,2022-03-03,Inactive,M,28.0,Delhi,885088.0,Hni
+Cust100194,Acc900194,Savings,2019-01-24,Active,F,74.0,Karnataka,483172.0,Hni
+Cust100195,Acc900195,Checking,2023-02-17,Frozen,M,63.0,Tamil Nadu,946188.0,Sme
+Cust100196,Acc900196,Fixed Deposit,2024-08-19,Frozen,F,40.0,Telangana,991253.0,Retail
+Cust100197,Acc900197,Current,2021-02-03,Closed,Other,39.0,West Bengal,921779.0,Retail
+Cust100198,Acc900198,Checking,2020-05-07,Active,M,53.0,Delhi,335745.0,Sme
+Cust100199,Acc900199,Savings,2023-07-19,Frozen,F,32.0,Rajasthan,977252.0,Retail
+Cust100200,Acc900200,Savings,2019-12-03,Frozen,M,53.0,Telangana,551266.0,Sme
+Cust100201,Acc900201,Checking,2020-07-17,Frozen,Other,58.0,Telangana,248249.0,Sme
+Cust100202,Acc900202,Current,2018-08-29,Closed,M,60.0,West Bengal,294726.0,Sme
+Cust100203,Acc900203,Checking,2024-05-28,Closed,F,20.0,Tamil Nadu,368958.0,Retail
+Cust100204,Acc900204,Savings,2019-05-05,Inactive,M,74.0,Delhi,660226.0,Sme
+Cust100205,Acc900205,Savings,2019-08-11,Inactive,M,18.0,Rajasthan,441847.0,Retail
+Cust100206,Acc900206,Checking,2020-02-22,Closed,M,73.0,Rajasthan,837781.0,Hni
+Cust100207,Acc900207,Checking,2019-10-31,Inactive,M,57.0,Rajasthan,274988.0,Sme
+Cust100208,Acc900208,Fixed Deposit,2021-10-14,Active,M,66.0,Delhi,245453.0,Retail
+Cust100209,Acc900209,Fixed Deposit,2020-08-12,Closed,F,23.0,Telangana,734919.0,Corporate
+Cust100210,Acc900210,Current,2023-05-22,Closed,Other,66.0,Maharashtra,211161.0,Sme
+Cust100211,Acc900211,Checking,2020-08-21,Inactive,M,69.0,Telangana,614788.0,Sme
+Cust100212,Acc900212,Fixed Deposit,2022-05-15,Closed,F,35.0,Maharashtra,442399.0,Retail
+Cust100213,Acc900213,Fixed Deposit,2021-08-19,Inactive,M,57.0,Rajasthan,506349.0,Hni
+Cust100214,Acc900214,Fixed Deposit,2024-03-02,Inactive,M,55.0,West Bengal,984539.0,Sme
+Cust100215,Acc900215,Checking,2020-01-12,Frozen,Other,64.0,Delhi,260741.0,Corporate
+Cust100216,Acc900216,Fixed Deposit,2022-11-07,Closed,M,18.0,Rajasthan,813385.0,Hni
+Cust100217,Acc900217,Recurring Deposit,2021-10-31,Active,M,65.0,Delhi,300284.0,Sme
+Cust100218,Acc900218,Checking,2020-01-31,Closed,F,34.0,Rajasthan,626461.0,Corporate
+Cust100219,Acc900219,Current,2024-07-26,Inactive,M,49.0,Tamil Nadu,295864.0,Corporate
+Cust100220,Acc900220,Savings,2020-01-30,Frozen,M,53.0,Gujarat,522461.0,Hni
+Cust100221,Acc900221,Fixed Deposit,2024-11-23,Inactive,M,59.0,Karnataka,819301.0,Retail
+Cust100222,Acc900222,Recurring Deposit,2023-11-01,Closed,F,64.0,Telangana,854525.0,Sme
+Cust100223,Acc900223,Recurring Deposit,2024-10-08,Inactive,M,53.0,Telangana,623273.0,Corporate
+Cust100224,Acc900224,Recurring Deposit,2022-03-27,Inactive,F,31.0,Delhi,196753.0,Retail
+Cust100225,Acc900225,Recurring Deposit,2023-04-11,Inactive,M,33.0,Gujarat,648898.0,Retail
+Cust100226,Acc900226,Savings,2020-04-27,Active,M,41.0,Delhi,845647.0,Retail
+Cust100227,Acc900227,Recurring Deposit,2022-03-01,Active,M,39.0,Rajasthan,273648.0,Corporate
+Cust100228,Acc900228,Fixed Deposit,2020-11-23,Inactive,M,74.0,Gujarat,525006.0,Sme
+Cust100229,Acc900229,Current,2019-10-15,Active,M,42.0,Rajasthan,822502.0,Retail
+Cust100230,Acc900230,Fixed Deposit,2023-01-28,Active,Other,37.0,Gujarat,888019.0,Sme
+Cust100231,Acc900231,Fixed Deposit,2019-01-17,Active,M,39.0,Karnataka,104493.0,Sme
+Cust100232,Acc900232,Fixed Deposit,2018-01-10,Inactive,M,22.0,Delhi,933016.0,Retail
+Cust100233,Acc900233,Savings,2023-08-12,Frozen,M,25.0,Rajasthan,222152.0,Retail
+Cust100234,Acc900234,Savings,2018-05-14,Active,F,37.0,Delhi,382117.0,Hni
+Cust100235,Acc900235,Savings,2023-05-08,Inactive,M,41.0,Tamil Nadu,708388.0,Hni
+Cust100236,Acc900236,Checking,2018-07-10,Frozen,F,43.0,Maharashtra,899679.0,Hni
+Cust100237,Acc900237,Fixed Deposit,2020-04-02,Active,F,71.0,Gujarat,730794.0,Sme
+Cust100238,Acc900238,Checking,2021-08-23,Closed,M,40.0,Karnataka,522461.0,Sme
+Cust100239,Acc900239,Savings,2019-02-04,Inactive,F,60.0,West Bengal,545525.0,Sme
+Cust100240,Acc900240,Current,2020-12-01,Closed,M,64.0,Gujarat,673284.0,Sme
+Cust100241,Acc900241,Current,2018-05-03,Closed,M,67.0,Gujarat,146290.0,Hni
+Cust100242,Acc900242,Current,2018-12-30,Active,Other,35.0,Delhi,353993.0,Retail
+Cust100243,Acc900243,Checking,2023-11-07,Inactive,M,60.0,Rajasthan,970753.0,Hni
+Cust100244,Acc900244,Current,2018-06-03,Inactive,Other,21.0,Telangana,217455.0,Sme
+Cust100245,Acc900245,Fixed Deposit,2021-09-29,Active,M,49.0,Rajasthan,549492.0,Hni
+Cust100246,Acc900246,Checking,2022-10-14,Active,M,30.0,Delhi,399645.0,Retail
+Cust100247,Acc900247,Recurring Deposit,2019-11-10,Inactive,M,63.0,West Bengal,794727.0,Sme
+Cust100248,Acc900248,Recurring Deposit,2018-03-13,Active,Other,75.0,Gujarat,508196.0,Corporate
+Cust100249,Acc900249,Savings,2018-11-29,Closed,F,57.0,Tamil Nadu,731031.0,Sme
+Cust100250,Acc900250,Savings,2020-03-10,Inactive,F,32.0,Delhi,660130.0,Sme
+Cust100251,Acc900251,Checking,2018-11-04,Frozen,M,58.0,Telangana,266951.0,Sme
+Cust100252,Acc900252,Savings,2021-10-04,Inactive,M,24.0,Gujarat,665465.0,Corporate
+Cust100253,Acc900253,Recurring Deposit,2018-09-18,Inactive,F,47.0,Rajasthan,987874.0,Corporate
+Cust100254,Acc900254,Current,2022-07-17,Inactive,F,61.0,Delhi,443687.0,Corporate
+Cust100255,Acc900255,Fixed Deposit,2023-05-04,Closed,F,51.0,Tamil Nadu,840401.0,Hni
+Cust100256,Acc900256,Recurring Deposit,2021-10-22,Active,F,41.0,Rajasthan,406884.0,Hni
+Cust100257,Acc900257,Current,2021-03-25,Frozen,F,22.0,Delhi,676060.0,Sme
+Cust100258,Acc900258,Checking,2018-09-17,Frozen,M,30.0,Rajasthan,621877.0,Hni
+Cust100259,Acc900259,Recurring Deposit,2024-04-05,Inactive,M,27.0,Delhi,522461.0,Hni
+Cust100260,Acc900260,Savings,2019-01-14,Inactive,Other,35.0,Gujarat,662192.0,Sme
+Cust100261,Acc900261,Recurring Deposit,2019-03-01,Inactive,F,36.0,Delhi,269820.0,Retail
+Cust100262,Acc900262,Checking,2024-09-19,Inactive,M,64.0,Maharashtra,872468.0,Sme
+Cust100263,Acc900263,Current,2019-01-04,Inactive,M,51.0,Tamil Nadu,713571.0,Sme
+Cust100264,Acc900264,Savings,2018-05-12,Inactive,M,43.0,Rajasthan,379103.0,Sme
+Cust100265,Acc900265,Checking,2020-05-13,Inactive,F,50.0,Rajasthan,473346.0,Retail
+Cust100266,Acc900266,Fixed Deposit,2018-02-17,Closed,M,69.0,Rajasthan,449497.0,Sme
+Cust100267,Acc900267,Checking,2021-04-14,Inactive,F,56.0,West Bengal,213204.0,Sme
+Cust100268,Acc900268,Current,2020-02-04,Closed,F,34.0,Gujarat,676247.0,Sme
+Cust100269,Acc900269,Savings,2021-09-02,Closed,Other,38.0,Gujarat,115052.0,Sme
+Cust100270,Acc900270,Fixed Deposit,2021-10-24,Active,M,54.0,Maharashtra,662928.0,Sme
+Cust100271,Acc900271,Fixed Deposit,2023-07-19,Inactive,M,73.0,Telangana,589919.0,Sme
+Cust100272,Acc900272,Checking,2020-03-03,Frozen,F,46.0,Delhi,849894.0,Sme
+Cust100273,Acc900273,Fixed Deposit,2021-11-15,Active,F,34.0,Rajasthan,346903.0,Corporate
+Cust100274,Acc900274,Savings,2022-05-25,Inactive,F,54.0,Tamil Nadu,522461.0,Corporate
+Cust100275,Acc900275,Savings,2018-07-08,Frozen,M,75.0,Rajasthan,697006.0,Sme
+Cust100276,Acc900276,Checking,2018-04-02,Active,M,74.0,Telangana,630367.0,Sme
+Cust100277,Acc900277,Current,2023-07-29,Active,M,19.0,Telangana,956624.0,Retail
+Cust100278,Acc900278,Savings,2018-05-15,Closed,M,45.0,West Bengal,172058.0,Retail
+Cust100279,Acc900279,Current,2023-11-17,Inactive,F,27.0,Delhi,585175.0,Corporate
+Cust100280,Acc900280,Current,2021-04-23,Active,F,61.0,Maharashtra,798799.0,Sme
+Cust100281,Acc900281,Current,2024-12-22,Inactive,F,67.0,West Bengal,403013.0,Retail
+Cust100282,Acc900282,Savings,2018-01-12,Active,M,42.0,Rajasthan,693067.0,Sme
+Cust100283,Acc900283,Current,2019-11-18,Inactive,M,71.0,Maharashtra,910682.0,Retail
+Cust100284,Acc900284,Savings,2024-02-21,Closed,M,27.0,Tamil Nadu,208250.0,Sme
+Cust100285,Acc900285,Recurring Deposit,2019-01-19,Closed,M,21.0,Gujarat,188198.0,Sme
+Cust100286,Acc900286,Current,2021-05-15,Inactive,F,47.0,Telangana,482384.0,Sme
+Cust100287,Acc900287,Checking,2018-11-14,Frozen,M,41.0,Telangana,489247.0,Sme
+Cust100288,Acc900288,Savings,2020-09-08,Frozen,M,35.0,Rajasthan,372379.0,Retail
+Cust100289,Acc900289,Checking,2019-11-02,Active,F,61.0,Tamil Nadu,509747.0,Hni
+Cust100290,Acc900290,Checking,2021-11-09,Closed,F,57.0,Delhi,616942.0,Retail
+Cust100291,Acc900291,Fixed Deposit,2020-03-31,Frozen,Other,34.0,Delhi,504086.0,Retail
+Cust100292,Acc900292,Fixed Deposit,2020-07-27,Active,M,48.0,Rajasthan,693907.0,Hni
+Cust100293,Acc900293,Checking,2018-11-24,Frozen,M,29.0,Rajasthan,193351.0,Corporate
+Cust100294,Acc900294,Current,2021-09-16,Inactive,M,47.0,Delhi,732795.0,Sme
+Cust100295,Acc900295,Current,2024-06-26,Inactive,M,54.0,Maharashtra,248305.0,Corporate
+Cust100296,Acc900296,Current,2022-05-31,Inactive,Other,56.0,Tamil Nadu,394209.0,Hni
+Cust100297,Acc900297,Fixed Deposit,2022-11-30,Active,Other,34.0,Telangana,430499.0,Corporate
+Cust100298,Acc900298,Checking,2018-08-18,Closed,M,29.0,Tamil Nadu,591950.0,Sme
+Cust100299,Acc900299,Checking,2021-07-21,Frozen,M,55.0,Telangana,256923.0,Corporate
+Cust100300,Acc900300,Current,2024-08-18,Inactive,F,30.0,Gujarat,518767.0,Sme
+Cust100301,Acc900301,Savings,2022-02-19,Closed,M,28.0,Rajasthan,623767.0,Sme
+Cust100302,Acc900302,Recurring Deposit,2021-08-31,Frozen,Other,21.0,Delhi,744871.0,Hni
+Cust100303,Acc900303,Recurring Deposit,2023-11-28,Inactive,M,50.0,Tamil Nadu,316855.0,Retail
+Cust100304,Acc900304,Savings,2023-09-03,Inactive,Other,74.0,Rajasthan,808372.0,Retail
+Cust100305,Acc900305,Fixed Deposit,2023-12-27,Closed,M,57.0,Gujarat,712661.0,Corporate
+Cust100306,Acc900306,Recurring Deposit,2022-06-04,Frozen,M,28.0,Rajasthan,797267.0,Hni
+Cust100307,Acc900307,Savings,2019-04-30,Frozen,M,44.0,West Bengal,427721.0,Retail
+Cust100308,Acc900308,Current,2021-11-25,Inactive,F,62.0,Karnataka,341509.0,Corporate
+Cust100309,Acc900309,Fixed Deposit,2023-12-07,Frozen,F,64.0,Maharashtra,691947.0,Hni
+Cust100310,Acc900310,Current,2022-04-12,Closed,M,48.0,Rajasthan,585239.0,Hni
+Cust100311,Acc900311,Savings,2023-03-08,Inactive,M,66.0,Rajasthan,112466.0,Sme
+Cust100312,Acc900312,Savings,2019-05-15,Inactive,M,55.0,Delhi,406078.0,Retail
+Cust100313,Acc900313,Fixed Deposit,2020-09-07,Inactive,M,29.0,Karnataka,575306.0,Hni
+Cust100314,Acc900314,Savings,2024-06-14,Inactive,M,20.0,Rajasthan,476590.0,Retail
+Cust100315,Acc900315,Fixed Deposit,2018-02-27,Frozen,Other,63.0,Rajasthan,129529.0,Corporate
+Cust100316,Acc900316,Checking,2020-01-21,Frozen,F,49.0,Tamil Nadu,214459.0,Corporate
+Cust100317,Acc900317,Savings,2022-05-16,Closed,M,25.0,Karnataka,125277.0,Retail
+Cust100318,Acc900318,Recurring Deposit,2024-01-22,Active,Other,20.0,Karnataka,383554.0,Retail
+Cust100319,Acc900319,Recurring Deposit,2023-12-02,Inactive,M,45.0,Rajasthan,710242.0,Retail
+Cust100320,Acc900320,Recurring Deposit,2021-10-11,Inactive,Other,71.0,Rajasthan,156275.0,Corporate
+Cust100321,Acc900321,Checking,2024-01-18,Inactive,M,27.0,Delhi,881857.0,Retail
+Cust100322,Acc900322,Savings,2021-12-08,Active,M,59.0,Gujarat,997503.0,Hni
+Cust100323,Acc900323,Fixed Deposit,2024-02-14,Inactive,M,72.0,West Bengal,453750.0,Corporate
+Cust100324,Acc900324,Recurring Deposit,2022-09-16,Active,M,47.0,Rajasthan,681724.0,Sme
+Cust100325,Acc900325,Checking,2021-12-24,Inactive,F,66.0,Rajasthan,468991.0,Sme
+Cust100326,Acc900326,Current,2021-04-15,Closed,F,26.0,Rajasthan,124730.0,Sme
+Cust100327,Acc900327,Savings,2021-07-19,Active,F,24.0,Rajasthan,870023.0,Sme
+Cust100328,Acc900328,Current,2021-02-21,Inactive,M,47.0,West Bengal,170881.0,Hni
+Cust100329,Acc900329,Fixed Deposit,2019-07-21,Active,Other,31.0,Tamil Nadu,316260.0,Retail
+Cust100330,Acc900330,Fixed Deposit,2019-02-28,Inactive,M,71.0,Maharashtra,405350.0,Hni
+Cust100331,Acc900331,Current,2021-02-19,Inactive,M,72.0,Telangana,522461.0,Retail
+Cust100332,Acc900332,Savings,2022-09-11,Inactive,F,41.0,Maharashtra,524484.0,Hni
+Cust100333,Acc900333,Checking,2021-04-21,Frozen,F,28.0,Gujarat,248758.0,Corporate
+Cust100334,Acc900334,Savings,2024-05-28,Inactive,M,65.0,Delhi,747507.0,Sme
+Cust100335,Acc900335,Fixed Deposit,2021-01-31,Inactive,M,39.0,Tamil Nadu,926341.0,Sme
+Cust100336,Acc900336,Checking,2022-12-22,Frozen,M,43.0,West Bengal,194509.0,Sme
+Cust100337,Acc900337,Checking,2020-03-22,Inactive,M,59.0,Maharashtra,407675.0,Retail
+Cust100338,Acc900338,Recurring Deposit,2024-05-14,Inactive,M,47.0,Karnataka,191360.0,Sme
+Cust100339,Acc900339,Savings,2019-09-03,Inactive,M,62.0,Gujarat,626785.0,Sme
+Cust100340,Acc900340,Fixed Deposit,2020-04-20,Inactive,M,37.0,Telangana,906841.0,Sme
+Cust100341,Acc900341,Recurring Deposit,2022-09-29,Closed,Other,28.0,Karnataka,810725.0,Sme
+Cust100342,Acc900342,Savings,2022-04-04,Inactive,F,74.0,Tamil Nadu,522461.0,Sme
+Cust100343,Acc900343,Recurring Deposit,2019-05-07,Closed,M,66.0,Telangana,902008.0,Hni
+Cust100344,Acc900344,Current,2023-08-16,Frozen,M,70.0,Gujarat,235067.0,Sme
+Cust100345,Acc900345,Recurring Deposit,2024-07-17,Frozen,M,75.0,Maharashtra,790198.0,Sme
+Cust100346,Acc900346,Current,2020-07-18,Active,M,64.0,Maharashtra,790887.0,Corporate
+Cust100347,Acc900347,Savings,2023-11-26,Inactive,M,48.0,Rajasthan,565495.0,Corporate
+Cust100348,Acc900348,Fixed Deposit,2022-08-21,Active,Other,66.0,West Bengal,512778.0,Retail
+Cust100349,Acc900349,Current,2018-03-28,Inactive,F,52.0,Delhi,663204.0,Sme
+Cust100350,Acc900350,Checking,2022-06-24,Closed,F,25.0,Gujarat,969515.0,Sme
+Cust100351,Acc900351,Fixed Deposit,2020-12-25,Closed,M,55.0,Karnataka,986327.0,Corporate
+Cust100352,Acc900352,Checking,2024-09-11,Inactive,F,25.0,Maharashtra,582591.0,Sme
+Cust100353,Acc900353,Fixed Deposit,2021-05-15,Inactive,F,31.0,Tamil Nadu,660901.0,Hni
+Cust100354,Acc900354,Checking,2018-03-30,Inactive,M,62.0,Maharashtra,479066.0,Sme
+Cust100355,Acc900355,Recurring Deposit,2021-07-06,Inactive,F,68.0,West Bengal,832936.0,Sme
+Cust100356,Acc900356,Recurring Deposit,2018-11-13,Closed,Other,63.0,Tamil Nadu,651403.0,Hni
+Cust100357,Acc900357,Fixed Deposit,2023-11-09,Active,M,22.0,Rajasthan,105998.0,Retail
+Cust100358,Acc900358,Recurring Deposit,2022-08-27,Inactive,M,36.0,West Bengal,706482.0,Retail
+Cust100359,Acc900359,Recurring Deposit,2023-05-03,Active,M,72.0,Rajasthan,427343.0,Sme
+Cust100360,Acc900360,Fixed Deposit,2023-04-14,Closed,Other,47.0,Tamil Nadu,253806.0,Sme
+Cust100361,Acc900361,Fixed Deposit,2024-12-26,Closed,M,19.0,Gujarat,966935.0,Corporate
+Cust100362,Acc900362,Checking,2023-11-21,Frozen,M,19.0,West Bengal,146387.0,Sme
+Cust100363,Acc900363,Recurring Deposit,2020-07-11,Frozen,F,62.0,Tamil Nadu,417249.0,Corporate
+Cust100364,Acc900364,Fixed Deposit,2024-06-11,Inactive,Other,47.0,Gujarat,843460.0,Hni
+Cust100365,Acc900365,Recurring Deposit,2021-03-06,Frozen,F,58.0,Rajasthan,728918.0,Sme
+Cust100366,Acc900366,Checking,2021-07-07,Inactive,F,33.0,Rajasthan,498049.0,Corporate
+Cust100367,Acc900367,Recurring Deposit,2021-10-03,Inactive,Other,28.0,Karnataka,522461.0,Corporate
+Cust100368,Acc900368,Fixed Deposit,2019-01-24,Inactive,M,62.0,Maharashtra,971306.0,Sme
+Cust100369,Acc900369,Current,2019-09-21,Inactive,M,48.0,Karnataka,327098.0,Sme
+Cust100370,Acc900370,Recurring Deposit,2022-12-19,Inactive,M,29.0,Telangana,454485.0,Hni
+Cust100371,Acc900371,Checking,2024-06-19,Closed,M,65.0,Maharashtra,274112.0,Hni
+Cust100372,Acc900372,Recurring Deposit,2018-03-20,Inactive,M,42.0,Maharashtra,677454.0,Sme
+Cust100373,Acc900373,Savings,2019-03-06,Frozen,M,40.0,Tamil Nadu,971150.0,Sme
+Cust100374,Acc900374,Savings,2024-12-17,Inactive,M,47.0,Telangana,408872.0,Corporate
+Cust100375,Acc900375,Savings,2023-08-08,Inactive,Other,25.0,West Bengal,916103.0,Sme
+Cust100376,Acc900376,Savings,2023-02-10,Active,F,26.0,Telangana,719766.0,Sme
+Cust100377,Acc900377,Savings,2024-03-20,Inactive,Other,69.0,Gujarat,401819.0,Sme
+Cust100378,Acc900378,Recurring Deposit,2024-03-25,Inactive,M,42.0,Telangana,534503.0,Sme
+Cust100379,Acc900379,Current,2024-08-04,Inactive,M,40.0,West Bengal,323236.0,Sme
+Cust100380,Acc900380,Current,2020-01-13,Inactive,F,38.0,West Bengal,321927.0,Corporate
+Cust100381,Acc900381,Recurring Deposit,2018-09-11,Closed,M,19.0,Gujarat,456496.0,Sme
+Cust100382,Acc900382,Savings,2019-05-28,Frozen,M,28.0,Tamil Nadu,461317.0,Sme
+Cust100383,Acc900383,Recurring Deposit,2020-11-22,Closed,M,53.0,Gujarat,695048.0,Sme
+Cust100384,Acc900384,Checking,2018-08-11,Inactive,M,66.0,Gujarat,566896.0,Corporate
+Cust100385,Acc900385,Recurring Deposit,2022-10-13,Inactive,F,47.0,Tamil Nadu,487544.0,Sme
+Cust100386,Acc900386,Savings,2018-11-14,Frozen,M,36.0,Rajasthan,777210.0,Retail
+Cust100387,Acc900387,Savings,2022-02-07,Active,M,45.0,Gujarat,608430.0,Sme
+Cust100388,Acc900388,Checking,2023-10-13,Closed,Other,75.0,Rajasthan,810735.0,Retail
+Cust100389,Acc900389,Fixed Deposit,2019-01-20,Active,M,68.0,Delhi,516248.0,Hni
+Cust100390,Acc900390,Checking,2022-07-02,Closed,Other,63.0,Delhi,882534.0,Hni
+Cust100391,Acc900391,Current,2020-05-03,Inactive,F,25.0,Tamil Nadu,807137.0,Sme
+Cust100392,Acc900392,Fixed Deposit,2020-11-16,Inactive,M,73.0,Tamil Nadu,521022.0,Retail
+Cust100393,Acc900393,Fixed Deposit,2022-12-24,Inactive,M,50.0,Delhi,982390.0,Retail
+Cust100394,Acc900394,Savings,2018-01-18,Closed,F,34.0,Gujarat,835837.0,Sme
+Cust100395,Acc900395,Savings,2021-08-30,Frozen,M,62.0,Rajasthan,404850.0,Corporate
+Cust100396,Acc900396,Current,2021-05-16,Closed,F,64.0,Maharashtra,822602.0,Sme
+Cust100397,Acc900397,Recurring Deposit,2019-01-21,Closed,Other,32.0,Rajasthan,419224.0,Retail
+Cust100398,Acc900398,Fixed Deposit,2018-05-09,Closed,M,29.0,West Bengal,340283.0,Sme
+Cust100399,Acc900399,Checking,2018-08-23,Inactive,F,70.0,Delhi,866670.0,Hni
+Cust100400,Acc900400,Fixed Deposit,2024-05-12,Inactive,M,46.0,Telangana,172149.0,Sme
+Cust100401,Acc900401,Savings,2018-11-06,Inactive,F,60.0,West Bengal,482923.0,Sme
+Cust100402,Acc900402,Checking,2020-06-06,Frozen,M,47.0,Gujarat,284453.0,Sme
+Cust100403,Acc900403,Current,2019-03-29,Inactive,M,44.0,Delhi,573602.0,Retail
+Cust100404,Acc900404,Savings,2023-10-26,Inactive,F,47.0,Karnataka,328504.0,Retail
+Cust100405,Acc900405,Recurring Deposit,2024-08-13,Frozen,F,55.0,Tamil Nadu,437805.0,Corporate
+Cust100406,Acc900406,Current,2024-04-03,Inactive,M,71.0,Gujarat,167498.0,Corporate
+Cust100407,Acc900407,Fixed Deposit,2023-01-29,Closed,M,26.0,Rajasthan,168289.0,Hni
+Cust100408,Acc900408,Savings,2021-06-19,Inactive,M,57.0,Tamil Nadu,496934.0,Hni
+Cust100409,Acc900409,Fixed Deposit,2020-02-23,Inactive,F,61.0,Maharashtra,936941.0,Corporate
+Cust100410,Acc900410,Current,2021-03-12,Active,F,59.0,Rajasthan,391754.0,Corporate
+Cust100411,Acc900411,Recurring Deposit,2020-07-28,Active,M,20.0,Telangana,945689.0,Sme
+Cust100412,Acc900412,Checking,2023-06-29,Inactive,M,42.0,West Bengal,980081.0,Sme
+Cust100413,Acc900413,Fixed Deposit,2020-11-05,Frozen,M,68.0,Maharashtra,138607.0,Retail
+Cust100414,Acc900414,Savings,2018-09-03,Inactive,F,37.0,Karnataka,430873.0,Hni
+Cust100415,Acc900415,Checking,2018-10-02,Active,Other,22.0,Rajasthan,482394.0,Sme
+Cust100416,Acc900416,Current,2024-12-25,Inactive,M,54.0,Delhi,521084.0,Corporate
+Cust100417,Acc900417,Current,2020-03-12,Inactive,M,38.0,Delhi,522461.0,Retail
+Cust100418,Acc900418,Fixed Deposit,2024-01-03,Inactive,F,50.0,Telangana,852058.0,Hni
+Cust100419,Acc900419,Checking,2023-10-15,Inactive,M,47.0,West Bengal,109564.0,Corporate
+Cust100420,Acc900420,Recurring Deposit,2024-11-25,Inactive,M,19.0,Tamil Nadu,795764.0,Retail
+Cust100421,Acc900421,Savings,2023-11-29,Inactive,F,41.0,Rajasthan,226144.0,Hni
+Cust100422,Acc900422,Checking,2021-01-03,Closed,M,68.0,Telangana,559940.0,Sme
+Cust100423,Acc900423,Fixed Deposit,2023-06-14,Inactive,M,38.0,Rajasthan,186178.0,Hni
+Cust100424,Acc900424,Current,2018-10-08,Active,F,62.0,Rajasthan,153428.0,Sme
+Cust100425,Acc900425,Fixed Deposit,2023-02-07,Active,F,57.0,Delhi,946057.0,Sme
+Cust100426,Acc900426,Checking,2021-04-06,Active,M,63.0,Telangana,723217.0,Sme
+Cust100427,Acc900427,Checking,2023-12-28,Inactive,M,67.0,Gujarat,711607.0,Hni
+Cust100428,Acc900428,Savings,2020-12-16,Inactive,F,38.0,Tamil Nadu,178119.0,Sme
+Cust100429,Acc900429,Current,2018-09-02,Active,M,46.0,Delhi,187361.0,Sme
+Cust100430,Acc900430,Recurring Deposit,2018-03-25,Inactive,M,34.0,Karnataka,248441.0,Retail
+Cust100431,Acc900431,Recurring Deposit,2021-05-05,Frozen,F,57.0,Rajasthan,318978.0,Sme
+Cust100432,Acc900432,Recurring Deposit,2023-02-01,Inactive,M,73.0,Rajasthan,989936.0,Sme
+Cust100433,Acc900433,Fixed Deposit,2019-04-26,Active,M,48.0,Rajasthan,923472.0,Sme
+Cust100434,Acc900434,Savings,2019-06-17,Closed,M,29.0,Delhi,706766.0,Sme
+Cust100435,Acc900435,Checking,2023-12-09,Inactive,M,46.0,Karnataka,108747.0,Sme
+Cust100436,Acc900436,Fixed Deposit,2018-01-19,Inactive,M,62.0,Rajasthan,260986.0,Sme
+Cust100437,Acc900437,Recurring Deposit,2021-11-02,Closed,M,57.0,Delhi,424820.0,Sme
+Cust100438,Acc900438,Recurring Deposit,2022-08-15,Inactive,F,40.0,Maharashtra,856018.0,Retail
+Cust100439,Acc900439,Fixed Deposit,2021-12-22,Frozen,M,44.0,Telangana,817636.0,Retail
+Cust100440,Acc900440,Checking,2024-09-03,Inactive,M,28.0,West Bengal,936914.0,Sme
+Cust100441,Acc900441,Current,2021-10-26,Closed,F,71.0,Tamil Nadu,490344.0,Corporate
+Cust100442,Acc900442,Recurring Deposit,2018-11-05,Frozen,M,33.0,Rajasthan,625310.0,Retail
+Cust100443,Acc900443,Current,2020-02-17,Inactive,F,45.0,Rajasthan,801250.0,Corporate
+Cust100444,Acc900444,Current,2022-09-17,Inactive,Other,47.0,Rajasthan,462913.0,Corporate
+Cust100445,Acc900445,Fixed Deposit,2020-09-18,Active,M,24.0,West Bengal,615604.0,Sme
+Cust100446,Acc900446,Current,2021-01-16,Closed,M,27.0,Telangana,949675.0,Retail
+Cust100447,Acc900447,Checking,2020-11-29,Inactive,F,34.0,Maharashtra,458409.0,Corporate
+Cust100448,Acc900448,Fixed Deposit,2024-08-02,Closed,F,47.0,Rajasthan,168542.0,Sme
+Cust100449,Acc900449,Savings,2018-05-29,Closed,M,47.0,Karnataka,949507.0,Sme
+Cust100450,Acc900450,Current,2020-07-20,Inactive,F,60.0,Delhi,182041.0,Hni
+Cust100451,Acc900451,Recurring Deposit,2022-05-19,Active,M,45.0,Maharashtra,442572.0,Retail
+Cust100452,Acc900452,Checking,2024-04-20,Closed,Other,67.0,West Bengal,263096.0,Corporate
+Cust100453,Acc900453,Recurring Deposit,2020-09-04,Inactive,M,38.0,Delhi,221788.0,Corporate
+Cust100454,Acc900454,Savings,2024-10-14,Active,F,38.0,Tamil Nadu,573368.0,Corporate
+Cust100455,Acc900455,Fixed Deposit,2023-02-11,Closed,M,51.0,Gujarat,319509.0,Sme
+Cust100456,Acc900456,Current,2021-09-21,Active,M,19.0,Telangana,364997.0,Retail
+Cust100457,Acc900457,Current,2024-07-04,Active,M,47.0,Telangana,211680.0,Sme
+Cust100458,Acc900458,Current,2023-09-06,Active,F,29.0,Gujarat,563629.0,Hni
+Cust100459,Acc900459,Recurring Deposit,2024-05-23,Inactive,Other,54.0,Maharashtra,593107.0,Hni
+Cust100460,Acc900460,Current,2021-07-04,Inactive,M,59.0,Rajasthan,600119.0,Sme
+Cust100461,Acc900461,Fixed Deposit,2020-05-12,Inactive,M,59.0,Karnataka,263446.0,Sme
+Cust100462,Acc900462,Checking,2020-10-03,Closed,Other,22.0,Telangana,527703.0,Retail
+Cust100463,Acc900463,Fixed Deposit,2024-01-17,Inactive,M,37.0,Delhi,265204.0,Retail
+Cust100464,Acc900464,Checking,2018-04-12,Active,M,29.0,Karnataka,674048.0,Sme
+Cust100465,Acc900465,Fixed Deposit,2021-07-26,Active,M,67.0,Delhi,930265.0,Sme
+Cust100466,Acc900466,Recurring Deposit,2018-03-22,Closed,M,62.0,Rajasthan,754699.0,Sme
+Cust100467,Acc900467,Checking,2024-09-20,Inactive,M,73.0,Maharashtra,321709.0,Sme
+Cust100468,Acc900468,Current,2022-12-25,Inactive,Other,19.0,Rajasthan,607793.0,Sme
+Cust100469,Acc900469,Fixed Deposit,2020-11-12,Active,M,35.0,Gujarat,575716.0,Sme
+Cust100470,Acc900470,Current,2022-03-24,Inactive,F,19.0,Rajasthan,615419.0,Retail
+Cust100471,Acc900471,Fixed Deposit,2022-09-01,Inactive,M,74.0,Gujarat,648357.0,Hni
+Cust100472,Acc900472,Checking,2022-10-17,Closed,M,67.0,Maharashtra,259795.0,Retail
+Cust100473,Acc900473,Recurring Deposit,2023-01-17,Inactive,M,36.0,Rajasthan,316351.0,Corporate
+Cust100474,Acc900474,Checking,2024-06-16,Closed,M,47.0,Rajasthan,461731.0,Sme
+Cust100475,Acc900475,Checking,2018-09-10,Inactive,M,67.0,Tamil Nadu,699443.0,Retail
+Cust100476,Acc900476,Current,2023-05-14,Inactive,M,23.0,Telangana,222701.0,Hni
+Cust100477,Acc900477,Savings,2020-06-07,Frozen,F,53.0,West Bengal,127365.0,Corporate
+Cust100478,Acc900478,Savings,2018-08-13,Closed,Other,62.0,West Bengal,937897.0,Sme
+Cust100479,Acc900479,Current,2024-01-28,Frozen,F,30.0,Rajasthan,378657.0,Sme
+Cust100480,Acc900480,Savings,2022-06-28,Inactive,F,39.0,Karnataka,430050.0,Corporate
+Cust100481,Acc900481,Savings,2018-02-06,Inactive,F,72.0,Tamil Nadu,698120.0,Corporate
+Cust100482,Acc900482,Current,2020-01-13,Active,M,34.0,Karnataka,454251.0,Hni
+Cust100483,Acc900483,Current,2024-05-08,Active,Other,23.0,Delhi,536754.0,Sme
+Cust100484,Acc900484,Current,2022-04-13,Inactive,F,24.0,Tamil Nadu,905868.0,Hni
+Cust100485,Acc900485,Recurring Deposit,2018-03-28,Active,M,33.0,Rajasthan,467027.0,Sme
+Cust100486,Acc900486,Checking,2018-09-07,Frozen,F,29.0,Rajasthan,246604.0,Sme
+Cust100487,Acc900487,Recurring Deposit,2020-05-01,Inactive,M,47.0,Karnataka,522461.0,Sme
+Cust100488,Acc900488,Recurring Deposit,2022-10-22,Inactive,M,57.0,West Bengal,294194.0,Retail
+Cust100489,Acc900489,Checking,2019-02-27,Frozen,Other,66.0,Gujarat,862584.0,Hni
+Cust100490,Acc900490,Current,2021-05-31,Inactive,M,53.0,Maharashtra,522866.0,Retail
+Cust100491,Acc900491,Checking,2021-08-17,Inactive,M,20.0,Gujarat,468205.0,Corporate
+Cust100492,Acc900492,Recurring Deposit,2018-07-01,Inactive,M,37.0,West Bengal,704386.0,Retail
+Cust100493,Acc900493,Fixed Deposit,2018-11-11,Frozen,M,47.0,West Bengal,507193.0,Corporate
+Cust100494,Acc900494,Checking,2019-03-28,Active,M,21.0,Rajasthan,825396.0,Sme
+Cust100495,Acc900495,Current,2022-10-07,Active,M,35.0,Karnataka,493556.0,Hni
+Cust100496,Acc900496,Checking,2024-10-29,Active,M,23.0,Telangana,191914.0,Corporate
+Cust100497,Acc900497,Savings,2021-09-11,Closed,M,57.0,Gujarat,812279.0,Sme
+Cust100498,Acc900498,Current,2019-06-07,Frozen,M,62.0,Telangana,843805.0,Retail
+Cust100499,Acc900499,Fixed Deposit,2021-04-25,Frozen,F,23.0,Tamil Nadu,367520.0,Hni

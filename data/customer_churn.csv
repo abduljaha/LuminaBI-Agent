@@ -1,0 +1,13 @@
+customer_id,gender,tenure_months,contract_type,payment_method,monthly_charges,total_charges,support_tickets,churn
+CUST-001,Female,12,Month-to-month,Electronic check,75.50,906.00,3,Yes
+CUST-002,Male,34,One year,Credit card,55.20,1876.80,1,No
+CUST-003,Female,2,Month-to-month,Electronic check,89.90,179.80,5,Yes
+CUST-004,Male,48,Two year,Bank transfer,64.30,3086.40,0,No
+CUST-005,Female,8,Month-to-month,Mailed check,45.10,360.80,2,No
+CUST-006,Male,1,Month-to-month,Electronic check,95.40,95.40,6,Yes
+CUST-007,Female,60,Two year,Credit card,105.80,6348.00,1,No
+CUST-008,Male,24,One year,Bank transfer,50.00,1200.00,0,No
+CUST-009,Female,5,Month-to-month,Electronic check,80.20,401.00,4,Yes
+CUST-010,Male,72,Two year,Credit card,115.00,8280.00,0,No
+CUST-011,Female,18,One year,Bank transfer,68.90,1240.20,2,No
+CUST-012,Male,3,Month-to-month,Electronic check,92.00,276.00,4,Yes

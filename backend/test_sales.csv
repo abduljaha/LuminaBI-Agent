@@ -1,0 +1,11 @@
+transaction_id,date,region,category,revenue,units_sold,discount
+1,2023-01-01,North,Electronics,1200,4,0
+2,2023-01-02,South,Apparel,450,9,0.1
+3,2023-01-03,East,Home,800,2,0
+4,2023-01-04,West,Electronics,150,1,0.05
+5,2023-01-05,North,Apparel,600,12,0.2
+6,2023-01-06,South,Electronics,99999,100,0.5
+7,2023-01-07,East,Apparel,300,6,0
+8,2023-01-08,West,Home,950,5,0.1
+9,2023-01-09,North,Home,1100,3,0
+10,2023-01-10,South,Apparel,400,8,0

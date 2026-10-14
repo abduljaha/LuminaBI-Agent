@@ -2,7 +2,8 @@ import { useState, type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Sparkles, Database, LayoutDashboard, Terminal, ArrowUpRight, LogOut, 
-  UserCheck, Settings, User as UserIcon, CheckCircle2, AlertCircle, X, KeyRound 
+  UserCheck, Settings, User as UserIcon, CheckCircle2, AlertCircle, X, KeyRound,
+  LayoutGrid, GitFork 
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -30,6 +31,8 @@ const Layout = ({ children }: { children: ReactNode }) => {
 
   const navItems = [
     { name: 'Analysis', path: '/', icon: LayoutDashboard },
+    { name: 'Executive Board', path: '/board', icon: LayoutGrid },
+    { name: 'Data Modeling', path: '/modeling', icon: GitFork },
     { name: 'Data Sources', path: '/datasets', icon: Database },
   ];
 

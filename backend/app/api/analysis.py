@@ -347,3 +347,74 @@ async def execute_custom_sql(req: ExecuteSqlRequest):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"SQL Execution Error: {str(e)}")
 
+class RootCauseRequest(BaseModel):
+    dataset_id: int
+    metric_column: Optional[str] = None
+    dimension_column: Optional[str] = None
+    query: Optional[str] = ""
+
+@router.post("/root-cause")
+async def analyze_root_cause(req: RootCauseRequest):
+    """
+    Executes automated Root-Cause Driver Analysis and Waterfall Variance Decomposition.
+    Explains which categorical dimensions drove deviations against benchmark baseline.
+    """
+    import os
+    from app.analysis.driver_analysis import DriverAnalyzer
+    from app.data.universal_loader import UniversalDataLoader
+
+    db = SessionLocal()
+    dataset = db.query(Dataset).filter(Dataset.id == req.dataset_id).first()
+    db.close()
+
+    if not dataset or not os.path.exists(dataset.file_path):
+        raise HTTPException(status_code=404, detail="Dataset not found or data file missing")
+
+    try:
+        df, _ = UniversalDataLoader.load(dataset.file_path, dataset.name)
+        res = DriverAnalyzer.analyze_drivers(
+            df=df,
+            metric_col=req.metric_column,
+            dimension_col=req.dimension_column,
+            query=req.query
+        )
+        return sanitize_for_json(res)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Driver analysis failed: {str(e)}")
+
+class ForecastRequest(BaseModel):
+    dataset_id: int
+    date_column: Optional[str] = None
+    metric_column: Optional[str] = None
+    horizon_days: Optional[int] = 30
+
+@router.post("/forecast")
+async def generate_forecast(req: ForecastRequest):
+    """
+    Executes time-series statistical forecasting with 80% & 95% confidence bands
+    using Holt's exponential smoothing model.
+    """
+    import os
+    from app.analysis.forecasting import PredictiveForecaster
+    from app.data.universal_loader import UniversalDataLoader
+
+    db = SessionLocal()
+    dataset = db.query(Dataset).filter(Dataset.id == req.dataset_id).first()
+    db.close()
+
+    if not dataset or not os.path.exists(dataset.file_path):
+        raise HTTPException(status_code=404, detail="Dataset not found or data file missing")
+
+    try:
+        df, _ = UniversalDataLoader.load(dataset.file_path, dataset.name)
+        res = PredictiveForecaster.forecast(
+            df=df,
+            date_col=req.date_column,
+            metric_col=req.metric_column,
+            horizon=req.horizon_days or 30
+        )
+        return sanitize_for_json(res)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Forecasting failed: {str(e)}")
+
+

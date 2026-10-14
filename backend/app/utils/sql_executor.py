@@ -13,12 +13,20 @@ class SQLExecutor:
         with automatic fallback to in-memory SQLite if DuckDB encounters an issue.
         Provides 100x faster execution and native Power BI / Tableau analytical function compatibility.
         """
+        return SQLExecutor.execute_multi_dataframes({table_name: df}, sql_query)
+
+    @staticmethod
+    def execute_multi_dataframes(dfs: Dict[str, pd.DataFrame], sql_query: str) -> Dict[str, Any]:
+        """
+        Executes a SQL query across multiple Pandas DataFrames registered simultaneously in DuckDB OLAP engine.
+        Enables cross-table joins, subqueries, and window functions with sub-millisecond in-memory speeds.
+        """
         # 1. Primary: Ultra-fast DuckDB in-memory query engine
         try:
             import duckdb
             con = duckdb.connect(":memory:")
-            # Register DataFrame without copying data
-            con.register(table_name, df)
+            for t_name, dframe in dfs.items():
+                con.register(t_name, dframe)
             
             # Execute query directly
             result_df = con.execute(sql_query).df()
@@ -31,14 +39,14 @@ class SQLExecutor:
                 "row_count": len(result_df)
             }
         except Exception as duckdb_err:
-            logger.warning(f"DuckDB execution failed ({duckdb_err}), falling back to SQLite engine...")
+            logger.warning(f"DuckDB multi-dataframe execution failed ({duckdb_err}), falling back to SQLite engine...")
             
         # 2. Resilient Fallback: SQLite
         from sqlalchemy import create_engine
         engine = create_engine("sqlite:///:memory:")
-        df.to_sql(table_name, engine, index=False)
-        
         with engine.connect() as conn:
+            for t_name, dframe in dfs.items():
+                dframe.to_sql(t_name, engine, index=False, if_exists="replace")
             result = pd.read_sql(sql_query, conn)
             
         clean_rows = json.loads(result.to_json(orient="records", date_format="iso"))
@@ -47,4 +55,3 @@ class SQLExecutor:
             "rows": clean_rows,
             "row_count": len(result)
         }
-

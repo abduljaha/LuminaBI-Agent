@@ -3,6 +3,8 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Datasets from './pages/Datasets';
+import ExecutiveBoard from './pages/ExecutiveBoard';
+import DataModeling from './pages/DataModeling';
 import Auth from './pages/Auth';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -35,6 +37,22 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Dashboard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/board" 
+              element={
+                <ProtectedRoute>
+                  <ExecutiveBoard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/modeling" 
+              element={
+                <ProtectedRoute>
+                  <DataModeling />
                 </ProtectedRoute>
               } 
             />

@@ -3,9 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text
 from app.core.config import settings
 from app.db.database import engine, Base
-from app.api import datasets, analysis, auth, mcp
+from app.api import datasets, analysis, auth, mcp, board, modeling, recipe, connectors
 from app.models.user import User
 from app.models.dataset import Dataset
+from app.models.board import BoardWidget
 
 # Create database tables and ensure column schema synchronization
 Base.metadata.create_all(bind=engine)
@@ -50,6 +51,10 @@ app.include_router(auth.router, prefix=settings.API_V1_STR)
 app.include_router(datasets.router, prefix=settings.API_V1_STR)
 app.include_router(analysis.router, prefix=settings.API_V1_STR)
 app.include_router(mcp.router, prefix=settings.API_V1_STR)
+app.include_router(board.router, prefix=settings.API_V1_STR)
+app.include_router(modeling.router, prefix=settings.API_V1_STR)
+app.include_router(recipe.router, prefix=settings.API_V1_STR)
+app.include_router(connectors.router, prefix=settings.API_V1_STR)
 
 @app.get("/")
 def root():

@@ -5,7 +5,8 @@ import {
   UploadCloud, FileSpreadsheet,
   Sparkles, Layers, HardDrive, ArrowRight, ShieldCheck,
   CheckCircle2, AlertCircle, RefreshCw, AlertTriangle,
-  Download, Sliders, BarChart2, Cpu, Trash2, Eye, Search, X
+  Download, Sliders, BarChart2, Cpu, Trash2, Eye, Search, X,
+  Database, Play, Code2, Undo2, RotateCcw, FileCode, Wand2
 } from 'lucide-react';
 
 interface DatasetItem {
@@ -30,6 +31,32 @@ const Datasets = () => {
   const [dragActive, setDragActive] = useState(false);
   const [statusMessage, setStatusMessage] = useState<{ type: 'success' | 'error' | 'warning'; text: string; actionDatasetId?: number } | null>(null);
   const [purgingDatasetId, setPurgingDatasetId] = useState<number | null>(null);
+
+  // Live Database Connector Modal States
+  const [showDbModal, setShowDbModal] = useState<boolean>(false);
+  const [dbType, setDbType] = useState<string>('sqlite');
+  const [dbHost, setDbHost] = useState<string>('localhost');
+  const [dbPort, setDbPort] = useState<number | undefined>(undefined);
+  const [dbName, setDbName] = useState<string>('data_analyst.db');
+  const [dbUser, setDbUser] = useState<string>('');
+  const [dbPassword, setDbPassword] = useState<string>('');
+  const [dbFilePath, setDbFilePath] = useState<string>('data_analyst.db');
+  const [isTestingDb, setIsTestingDb] = useState<boolean>(false);
+  const [dbTestResult, setDbTestResult] = useState<{ success: boolean; message: string; latency_ms?: number } | null>(null);
+  const [remoteTables, setRemoteTables] = useState<any[]>([]);
+  const [isLoadingTables, setIsLoadingTables] = useState<boolean>(false);
+  const [selectedRemoteTable, setSelectedRemoteTable] = useState<string | null>(null);
+  const [tablePreviewData, setTablePreviewData] = useState<any>(null);
+  const [isLoadingTablePreview, setIsLoadingTablePreview] = useState<boolean>(false);
+  const [isImportingTable, setIsImportingTable] = useState<boolean>(false);
+
+  // Conversational Feature Engineering & Recipe Studio States
+  const [recipeModalDataset, setRecipeModalDataset] = useState<DatasetItem | null>(null);
+  const [recipeSteps, setRecipeSteps] = useState<any[]>([]);
+  const [recipePrompt, setRecipePrompt] = useState<string>('');
+  const [isApplyingRecipe, setIsApplyingRecipe] = useState<boolean>(false);
+  const [recipeError, setRecipeError] = useState<string | null>(null);
+  const [recipeSuccess, setRecipeSuccess] = useState<string | null>(null);
 
   // Instant File Preview & Spreadsheet Explorer Modal States
   const [previewModalDataset, setPreviewModalDataset] = useState<DatasetItem | null>(null);
@@ -96,6 +123,177 @@ const Datasets = () => {
       setIsLoadingPreview(false);
     }
   };
+
+  // DB Connector Handlers
+  const handleTestDbConnection = async () => {
+    setIsTestingDb(true);
+    setDbTestResult(null);
+    try {
+      const res = await axios.post('http://localhost:8000/api/v1/connectors/test', {
+        db_type: dbType,
+        host: dbHost,
+        port: dbPort ? Number(dbPort) : undefined,
+        database: dbName,
+        username: dbUser || undefined,
+        password: dbPassword || undefined,
+        file_path: dbFilePath || undefined
+      });
+      setDbTestResult(res.data);
+      handleIntrospectTables();
+    } catch (err: any) {
+      setDbTestResult({
+        success: false,
+        message: err.response?.data?.detail || 'Database connection failed.'
+      });
+    } finally {
+      setIsTestingDb(false);
+    }
+  };
+
+  const handleIntrospectTables = async () => {
+    setIsLoadingTables(true);
+    try {
+      const res = await axios.post('http://localhost:8000/api/v1/connectors/tables', {
+        db_type: dbType,
+        host: dbHost,
+        port: dbPort ? Number(dbPort) : undefined,
+        database: dbName,
+        username: dbUser || undefined,
+        password: dbPassword || undefined,
+        file_path: dbFilePath || undefined
+      });
+      setRemoteTables(res.data.tables || []);
+    } catch (err: any) {
+      console.error('Failed to introspect tables', err);
+    } finally {
+      setIsLoadingTables(false);
+    }
+  };
+
+  const handlePreviewRemoteTable = async (tableName: string) => {
+    setSelectedRemoteTable(tableName);
+    setIsLoadingTablePreview(true);
+    try {
+      const res = await axios.post('http://localhost:8000/api/v1/connectors/preview', {
+        db_type: dbType,
+        table_name: tableName,
+        host: dbHost,
+        port: dbPort ? Number(dbPort) : undefined,
+        database: dbName,
+        username: dbUser || undefined,
+        password: dbPassword || undefined,
+        file_path: dbFilePath || undefined,
+        limit: 20
+      });
+      setTablePreviewData(res.data);
+    } catch (err: any) {
+      alert(err.response?.data?.detail || 'Failed to preview table');
+    } finally {
+      setIsLoadingTablePreview(false);
+    }
+  };
+
+  const handleImportRemoteTable = async (tableName: string) => {
+    setIsImportingTable(true);
+    try {
+      const res = await axios.post('http://localhost:8000/api/v1/connectors/import', {
+        db_type: dbType,
+        table_name: tableName,
+        host: dbHost,
+        port: dbPort ? Number(dbPort) : undefined,
+        database: dbName,
+        username: dbUser || undefined,
+        password: dbPassword || undefined,
+        file_path: dbFilePath || undefined
+      });
+      setStatusMessage({
+        type: 'success',
+        text: res.data.message || `Table '${tableName}' successfully imported into workspace!`,
+        actionDatasetId: res.data.dataset_id
+      });
+      setShowDbModal(false);
+      await fetchDatasets();
+    } catch (err: any) {
+      alert(err.response?.data?.detail || 'Failed to import table');
+    } finally {
+      setIsImportingTable(false);
+    }
+  };
+
+  // Conversational Feature Engineering & Recipe Handlers
+  const openRecipeModal = async (dataset: DatasetItem) => {
+    setRecipeModalDataset(dataset);
+    setRecipeSteps([]);
+    setRecipePrompt('');
+    setRecipeError(null);
+    setRecipeSuccess(null);
+    try {
+      const res = await axios.get(`http://localhost:8000/api/v1/recipe/${dataset.id}`);
+      setRecipeSteps(res.data.recipe_steps || []);
+    } catch (err) {
+      console.error('Failed to load recipe steps', err);
+    }
+  };
+
+  const handleApplyRecipe = async () => {
+    if (!recipeModalDataset || !recipePrompt.trim()) return;
+    setIsApplyingRecipe(true);
+    setRecipeError(null);
+    setRecipeSuccess(null);
+    try {
+      const res = await axios.post(`http://localhost:8000/api/v1/recipe/${recipeModalDataset.id}/apply`, {
+        instruction: recipePrompt.trim()
+      });
+      setRecipeSteps(res.data.recipe_steps || []);
+      setRecipeSuccess(`Applied: "${res.data.step?.description || recipePrompt}" (+${res.data.new_columns?.join(', ') || 'columns updated'})`);
+      setRecipePrompt('');
+      await fetchDatasets();
+    } catch (err: any) {
+      setRecipeError(err.response?.data?.detail || 'Failed to apply transformation.');
+    } finally {
+      setIsApplyingRecipe(false);
+    }
+  };
+
+  const handleUndoRecipe = async () => {
+    if (!recipeModalDataset) return;
+    setIsApplyingRecipe(true);
+    setRecipeError(null);
+    setRecipeSuccess(null);
+    try {
+      const res = await axios.post(`http://localhost:8000/api/v1/recipe/${recipeModalDataset.id}/undo`);
+      setRecipeSteps(res.data.recipe_steps || []);
+      setRecipeSuccess('Reverted last transformation step.');
+      await fetchDatasets();
+    } catch (err: any) {
+      setRecipeError(err.response?.data?.detail || 'Failed to undo step.');
+    } finally {
+      setIsApplyingRecipe(false);
+    }
+  };
+
+  const handleResetRecipe = async () => {
+    if (!recipeModalDataset) return;
+    if (!window.confirm("Reset dataset back to raw uploaded baseline, clearing all recipe steps?")) return;
+    setIsApplyingRecipe(true);
+    setRecipeError(null);
+    setRecipeSuccess(null);
+    try {
+      await axios.post(`http://localhost:8000/api/v1/recipe/${recipeModalDataset.id}/reset`);
+      setRecipeSteps([]);
+      setRecipeSuccess('Reset back to raw baseline data.');
+      await fetchDatasets();
+    } catch (err: any) {
+      setRecipeError(err.response?.data?.detail || 'Failed to reset dataset.');
+    } finally {
+      setIsApplyingRecipe(false);
+    }
+  };
+
+  const handleExportPythonScript = (datasetId: number) => {
+    window.open(`http://localhost:8000/api/v1/recipe/${datasetId}/export-script`, '_blank');
+  };
+
 
   const runCleanse = async (proceedToAnalysis: boolean = false) => {
     if (!auditModalDataset) return;
@@ -403,9 +601,22 @@ const Datasets = () => {
             </div>
           </div>
 
-          <div className="mt-5 pt-4 border-t border-white/5 text-[11px] text-slate-500 flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Adheres to strict ISO data cleaning principles</span>
+          <div className="mt-5 pt-4 border-t border-white/5 space-y-3">
+            <div className="text-[11px] text-slate-500 flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Adheres to strict ISO data cleaning principles</span>
+            </div>
+
+            <button
+              onClick={() => {
+                setShowDbModal(true);
+                setDbTestResult(null);
+              }}
+              className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-500 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 transition-all cursor-pointer"
+            >
+              <Database className="w-4 h-4 text-cyan-200" />
+              <span>Connect Live Database (SQL / Warehouse)</span>
+            </button>
           </div>
         </div>
 
@@ -516,6 +727,16 @@ const Datasets = () => {
                         >
                           <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
                           <span>{isClean ? 'Inspect Quality' : 'EDA & Clean'}</span>
+                        </button>
+
+                        {/* Conversational Feature Engineering & Recipe Studio button */}
+                        <button
+                          onClick={() => openRecipeModal(ds)}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/30 text-purple-300 hover:text-white text-xs font-medium transition-all shadow-[0_0_12px_rgba(168,85,247,0.2)] cursor-pointer"
+                          title="AI Conversational Feature Engineering & Recipe Studio"
+                        >
+                          <Wand2 className="w-3.5 h-3.5 text-purple-400" />
+                          <span>AI Recipe</span>
                         </button>
 
                         {/* Export clean copy */}
@@ -1263,6 +1484,448 @@ const Datasets = () => {
               </div>
             ) : null}
 
+          </div>
+        </div>
+      )}
+
+      {/* Live Database Connector Modal */}
+      {showDbModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+          <div className="glass-panel rounded-3xl border border-cyan-500/30 p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto space-y-5 shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400">
+                  <Database className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white flex items-center gap-2">
+                    <span>Live Database & Cloud Warehouse Connector</span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                      DUCKDB ZERO-COPY
+                    </span>
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    Connect directly to PostgreSQL, MySQL, or SQLite to introspect schemas and import tables.
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowDbModal(false)}
+                className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Provider Tabs */}
+            <div className="flex items-center gap-2 p-1 bg-slate-900/90 rounded-xl border border-white/10 text-xs">
+              {[
+                { id: 'sqlite', name: 'SQLite (Local DB)' },
+                { id: 'postgres', name: 'PostgreSQL' },
+                { id: 'mysql', name: 'MySQL' }
+              ].map(prov => (
+                <button
+                  key={prov.id}
+                  onClick={() => {
+                    setDbType(prov.id);
+                    setDbTestResult(null);
+                    setRemoteTables([]);
+                    setSelectedRemoteTable(null);
+                    setTablePreviewData(null);
+                  }}
+                  className={`flex-1 py-2 rounded-lg font-semibold transition-all cursor-pointer ${
+                    dbType === prov.id
+                      ? 'bg-indigo-600 text-white shadow-md'
+                      : 'text-slate-400 hover:text-slate-200'
+                  }`}
+                >
+                  {prov.name}
+                </button>
+              ))}
+            </div>
+
+            {/* Connection Credentials Form */}
+            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
+              {dbType === 'sqlite' ? (
+                <div>
+                  <label className="text-[11px] font-semibold text-slate-300 block mb-1">SQLite Database File Path / Name</label>
+                  <input
+                    type="text"
+                    value={dbFilePath}
+                    onChange={(e) => setDbFilePath(e.target.value)}
+                    placeholder="e.g., data_analyst.db"
+                    className="w-full bg-slate-900 border border-white/15 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none focus:border-cyan-400 font-mono"
+                  />
+                  <span className="text-[10px] text-slate-500 mt-1 block">Default database: data_analyst.db</span>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="text-[11px] font-semibold text-slate-300 block mb-1">Host / Server</label>
+                    <input
+                      type="text"
+                      value={dbHost}
+                      onChange={(e) => setDbHost(e.target.value)}
+                      placeholder="e.g. localhost or db.enterprise.internal"
+                      className="w-full bg-slate-900 border border-white/15 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none focus:border-cyan-400"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[11px] font-semibold text-slate-300 block mb-1">Port</label>
+                    <input
+                      type="number"
+                      value={dbPort || (dbType === 'postgres' ? 5432 : 3306)}
+                      onChange={(e) => setDbPort(Number(e.target.value))}
+                      className="w-full bg-slate-900 border border-white/15 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none focus:border-cyan-400 font-mono"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[11px] font-semibold text-slate-300 block mb-1">Database Name</label>
+                    <input
+                      type="text"
+                      value={dbName}
+                      onChange={(e) => setDbName(e.target.value)}
+                      placeholder="e.g. analytics_db"
+                      className="w-full bg-slate-900 border border-white/15 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none focus:border-cyan-400"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-[11px] font-semibold text-slate-300 block mb-1">Username</label>
+                    <input
+                      type="text"
+                      value={dbUser}
+                      onChange={(e) => setDbUser(e.target.value)}
+                      placeholder="e.g. postgres"
+                      className="w-full bg-slate-900 border border-white/15 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none focus:border-cyan-400"
+                    />
+                  </div>
+                  <div className="sm:col-span-2">
+                    <label className="text-[11px] font-semibold text-slate-300 block mb-1">Password</label>
+                    <input
+                      type="password"
+                      value={dbPassword}
+                      onChange={(e) => setDbPassword(e.target.value)}
+                      placeholder="••••••••••••"
+                      className="w-full bg-slate-900 border border-white/15 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none focus:border-cyan-400"
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div className="flex items-center justify-between pt-2">
+                <button
+                  onClick={handleTestDbConnection}
+                  disabled={isTestingDb}
+                  className="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-white text-xs font-semibold flex items-center gap-2 shadow-lg shadow-cyan-600/20 transition-all cursor-pointer"
+                >
+                  {isTestingDb ? (
+                    <>
+                      <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      <span>Testing Latency...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Play className="w-3.5 h-3.5" />
+                      <span>Test Connection & Scan Tables</span>
+                    </>
+                  )}
+                </button>
+
+                {dbTestResult && (
+                  <span className={`text-xs font-semibold flex items-center gap-1.5 ${dbTestResult.success ? 'text-emerald-400' : 'text-rose-400'}`}>
+                    {dbTestResult.success ? <CheckCircle2 className="w-4 h-4" /> : <AlertCircle className="w-4 h-4" />}
+                    <span>{dbTestResult.message}</span>
+                  </span>
+                )}
+              </div>
+            </div>
+
+            {/* Remote Tables Browser */}
+            {isLoadingTables ? (
+              <div className="h-40 flex items-center justify-center">
+                <div className="w-6 h-6 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+              </div>
+            ) : remoteTables.length > 0 && (
+              <div className="space-y-4">
+                <div className="flex items-center justify-between text-xs">
+                  <span className="font-semibold text-slate-300 flex items-center gap-2">
+                    <Database className="w-3.5 h-3.5 text-cyan-400" />
+                    Available Tables in Database ({remoteTables.length}):
+                  </span>
+                  <span className="text-[11px] text-slate-400">Click a table to preview rows</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 max-h-48 overflow-y-auto pr-1">
+                  {remoteTables.map((tbl, i) => (
+                    <div
+                      key={i}
+                      onClick={() => handlePreviewRemoteTable(tbl.table_name)}
+                      className={`p-3 rounded-xl border text-xs cursor-pointer transition-all ${
+                        selectedRemoteTable === tbl.table_name
+                          ? 'bg-cyan-950/40 border-cyan-500/80 shadow-md'
+                          : 'bg-slate-900 border-white/10 hover:border-white/20'
+                      }`}
+                    >
+                      <div className="font-semibold text-slate-100 font-mono truncate">{tbl.table_name}</div>
+                      <div className="text-[11px] text-slate-400 mt-1 flex items-center gap-2">
+                        <span>{tbl.row_count.toLocaleString()} rows</span>
+                        <span>•</span>
+                        <span>{tbl.column_count} cols</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Table Preview Box */}
+                {isLoadingTablePreview ? (
+                  <div className="h-28 flex items-center justify-center">
+                    <div className="w-5 h-5 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+                  </div>
+                ) : tablePreviewData && selectedRemoteTable && (
+                  <div className="p-4 rounded-2xl bg-slate-950 border border-white/10 space-y-3">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="font-semibold text-cyan-300">
+                        Preview: <code className="text-white">{selectedRemoteTable}</code> ({tablePreviewData.rows?.length} records sample)
+                      </span>
+                      <button
+                        onClick={() => handleImportRemoteTable(selectedRemoteTable)}
+                        disabled={isImportingTable}
+                        className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 disabled:opacity-50 text-white text-xs font-semibold flex items-center gap-1.5 shadow transition-all cursor-pointer"
+                      >
+                        {isImportingTable ? (
+                          <>
+                            <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                            <span>Importing & Profiling...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Download className="w-3.5 h-3.5" />
+                            <span>Import into LuminaBI</span>
+                          </>
+                        )}
+                      </button>
+                    </div>
+
+                    <div className="overflow-x-auto max-h-40 border border-white/5 rounded-xl">
+                      <table className="w-full text-[11px] text-left">
+                        <thead className="bg-slate-900 text-slate-400 sticky top-0">
+                          <tr>
+                            {tablePreviewData.columns?.map((c: string) => (
+                              <th key={c} className="px-3 py-1.5 border-r border-white/5 font-mono">{c}</th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-white/5">
+                          {tablePreviewData.rows?.slice(0, 5).map((row: any, rIdx: number) => (
+                            <tr key={rIdx} className="hover:bg-white/5">
+                              {tablePreviewData.columns?.map((c: string) => (
+                                <td key={c} className="px-3 py-1.5 border-r border-white/5 text-slate-300 font-mono truncate max-w-[150px]">
+                                  {String(row[c] ?? '')}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            <div className="flex justify-end pt-2">
+              <button
+                onClick={() => setShowDbModal(false)}
+                className="px-5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition-all cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* AI Conversational Feature Engineering & Recipe Studio Modal */}
+      {recipeModalDataset && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+          <div className="glass-panel rounded-3xl border border-purple-500/30 p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto space-y-5 shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-purple-500/20 border border-purple-500/40 flex items-center justify-center text-purple-400">
+                  <Wand2 className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white flex items-center gap-2">
+                    <span>AI Feature Engineering & Transformation Studio</span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
+                      STEP-BY-STEP RECIPE
+                    </span>
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    Dataset: <strong className="text-white">{recipeModalDataset.name}</strong> • {recipeModalDataset.schema_info?.column_count || 0} columns • {recipeModalDataset.schema_info?.row_count?.toLocaleString() || 0} rows
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setRecipeModalDataset(null)}
+                className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Prompt Input Box */}
+            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/10 space-y-3">
+              <label className="text-xs font-semibold text-slate-300 block">
+                Conversational Transformation Instruction:
+              </label>
+              <div className="relative">
+                <textarea
+                  rows={2}
+                  value={recipePrompt}
+                  onChange={(e) => setRecipePrompt(e.target.value)}
+                  placeholder="e.g. Create a new column called 'customer_value_score' from total_spend divided by tenure_months, and bucket into High/Mid/Low spenders..."
+                  className="w-full bg-slate-900 border border-white/15 rounded-xl p-3 text-xs text-slate-200 outline-none focus:border-purple-400 resize-none font-sans"
+                />
+              </div>
+
+              {/* Quick suggestion pills */}
+              <div className="flex flex-wrap gap-2 text-[11px]">
+                {[
+                  "Create column margin_pct = profit / revenue * 100",
+                  "Bucket numeric column into Low, Medium, High tiers",
+                  "Filter out rows where status is inactive"
+                ].map((sug, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setRecipePrompt(sug)}
+                    className="px-2.5 py-1 rounded-lg bg-purple-950/40 hover:bg-purple-900/40 border border-purple-800/50 text-purple-300 cursor-pointer transition-colors"
+                  >
+                    + {sug}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex items-center justify-between pt-1">
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={handleApplyRecipe}
+                    disabled={isApplyingRecipe || !recipePrompt.trim()}
+                    className="px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 disabled:opacity-50 text-white text-xs font-semibold flex items-center gap-1.5 shadow-lg shadow-purple-600/30 transition-all cursor-pointer"
+                  >
+                    {isApplyingRecipe ? (
+                      <>
+                        <div className="w-3.5 h-3.5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <span>Synthesizing & Executing Transformation...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Sparkles className="w-3.5 h-3.5" />
+                        <span>Apply Feature Transformation</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+
+                {recipeSteps.length > 0 && (
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={handleUndoRecipe}
+                      disabled={isApplyingRecipe}
+                      className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium flex items-center gap-1 transition-colors cursor-pointer"
+                      title="Undo the last applied step"
+                    >
+                      <Undo2 className="w-3.5 h-3.5 text-amber-400" />
+                      <span>Undo Step</span>
+                    </button>
+                    <button
+                      onClick={handleResetRecipe}
+                      disabled={isApplyingRecipe}
+                      className="px-3 py-1.5 rounded-xl bg-rose-950/40 hover:bg-rose-900/40 border border-rose-800/50 text-rose-300 text-xs font-medium flex items-center gap-1 transition-colors cursor-pointer"
+                      title="Reset dataset back to raw baseline"
+                    >
+                      <RotateCcw className="w-3.5 h-3.5 text-rose-400" />
+                      <span>Reset to Raw</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Success or Error alert */}
+            {recipeSuccess && (
+              <div className="p-3 bg-emerald-950/40 border border-emerald-800/60 rounded-xl text-emerald-300 text-xs flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>{recipeSuccess}</span>
+              </div>
+            )}
+            {recipeError && (
+              <div className="p-3 bg-rose-950/40 border border-rose-800/60 rounded-xl text-rose-300 text-xs flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <span>{recipeError}</span>
+              </div>
+            )}
+
+            {/* Step-by-Step Recipe Timeline */}
+            <div className="space-y-3">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-semibold text-slate-300 flex items-center gap-2">
+                  <Code2 className="w-3.5 h-3.5 text-purple-400" />
+                  Active Transformation Pipeline ({recipeSteps.length} Steps):
+                </span>
+                {recipeSteps.length > 0 && (
+                  <button
+                    onClick={() => handleExportPythonScript(recipeModalDataset.id)}
+                    className="text-cyan-400 hover:text-cyan-300 text-xs flex items-center gap-1 cursor-pointer font-medium"
+                  >
+                    <FileCode className="w-3.5 h-3.5" />
+                    <span>Download Reusable Python Pipeline (.py)</span>
+                  </button>
+                )}
+              </div>
+
+              {recipeSteps.length === 0 ? (
+                <div className="p-8 border border-dashed border-white/10 rounded-2xl text-center text-xs text-slate-500">
+                  No transformations applied yet. Type any feature engineering command above to begin your recipe.
+                </div>
+              ) : (
+                <div className="space-y-2.5 max-h-60 overflow-y-auto pr-1">
+                  {recipeSteps.map((step, idx) => (
+                    <div key={idx} className="p-3.5 rounded-xl bg-slate-950 border border-white/10 text-xs space-y-2">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="w-5 h-5 rounded-full bg-purple-500/20 text-purple-300 font-bold text-[10px] flex items-center justify-center border border-purple-500/40">
+                            {idx + 1}
+                          </span>
+                          <span className="font-semibold text-slate-200">
+                            {step.description || step.instruction}
+                          </span>
+                        </div>
+                        {step.new_columns?.length > 0 && (
+                          <span className="px-2 py-0.5 rounded text-[10px] bg-emerald-950/80 border border-emerald-800/60 text-emerald-300 font-mono">
+                            +{step.new_columns.join(', ')}
+                          </span>
+                        )}
+                      </div>
+                      {step.code && (
+                        <pre className="p-2 rounded-lg bg-slate-900 border border-white/5 font-mono text-[10px] text-purple-300 overflow-x-auto">
+                          {step.code}
+                        </pre>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <div className="flex justify-end pt-2">
+              <button
+                onClick={() => setRecipeModalDataset(null)}
+                className="px-5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition-all cursor-pointer"
+              >
+                Done
+              </button>
+            </div>
           </div>
         </div>
       )}

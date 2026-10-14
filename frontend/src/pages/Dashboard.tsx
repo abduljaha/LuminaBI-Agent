@@ -8,7 +8,8 @@ import {
   Terminal, Sliders, Zap, ArrowRight,
   ThumbsUp, ThumbsDown, Pencil, Play, Network, Share2,
   Mic, MicOff, Maximize2, Minimize2, BarChart3,
-  Filter, Search, X, ChevronDown, CheckSquare, Square
+  Filter, Search, X, ChevronDown, CheckSquare, Square,
+  Pin, TrendingUp
 } from 'lucide-react';
 
 import { 
@@ -86,6 +87,23 @@ const Dashboard: React.FC = () => {
   const [copiedPowerBiUrl, setCopiedPowerBiUrl] = useState<boolean>(false);
   const [copiedMQuery, setCopiedMQuery] = useState<boolean>(false);
   const [copiedMcpConfig, setCopiedMcpConfig] = useState<boolean>(false);
+
+  // Executive Board Pinning State
+  const [isPinning, setIsPinning] = useState<boolean>(false);
+  const [pinToast, setPinToast] = useState<string | null>(null);
+
+  // Root-Cause Driver Decomposition Modal State
+  const [showRootCauseModal, setShowRootCauseModal] = useState<boolean>(false);
+  const [isLoadingRootCause, setIsLoadingRootCause] = useState<boolean>(false);
+  const [rootCauseData, setRootCauseData] = useState<any>(null);
+  const [rootCauseError, setRootCauseError] = useState<string | null>(null);
+
+  // Predictive ML Forecasting Modal State
+  const [showForecastModal, setShowForecastModal] = useState<boolean>(false);
+  const [isLoadingForecast, setIsLoadingForecast] = useState<boolean>(false);
+  const [forecastHorizon, setForecastHorizon] = useState<number>(30);
+  const [forecastData, setForecastData] = useState<any>(null);
+  const [forecastError, setForecastError] = useState<string | null>(null);
 
   // Feature: Interactive Multi-Chart Switcher & Pivot Controls supporting 20 BI visualization types
   const [chartTypeOverride, setChartTypeOverride] = useState<
@@ -564,6 +582,74 @@ const Dashboard: React.FC = () => {
       setExportingFormat(null);
     }
   };
+
+  const handlePinToBoard = async () => {
+    if (!activeResult) return;
+    setIsPinning(true);
+    try {
+      const dsObj = datasets.find(d => String(d.id) === String(selectedDataset));
+      const activeChart = chartTypeOverride || (activeResult.chart_specs?.[0]?.chart_type) || 'bar';
+      const lastUserQuery = [...messages].reverse().find(m => m.role === 'user')?.content || query || "Analysis Insight";
+      
+      await axios.post('http://localhost:8000/api/v1/board/', {
+        board_name: 'Executive Cockpit',
+        dataset_id: selectedDataset ? parseInt(selectedDataset, 10) : undefined,
+        dataset_name: dsObj?.name || 'Dataset',
+        title: lastUserQuery.length > 50 ? `${lastUserQuery.slice(0, 47)}...` : lastUserQuery,
+        query: lastUserQuery,
+        chart_type: activeChart,
+        chart_specs: activeResult.chart_specs,
+        query_result: activeResult.query_result,
+        insights: activeResult.insights,
+        card_width: 'col-span-1'
+      });
+      setPinToast('Pinned to Executive Board!');
+      setTimeout(() => setPinToast(null), 3500);
+    } catch (err) {
+      setPinToast('Failed to pin to board');
+      setTimeout(() => setPinToast(null), 3500);
+    } finally {
+      setIsPinning(false);
+    }
+  };
+
+  const handleOpenRootCause = async () => {
+    if (!selectedDataset) return;
+    setShowRootCauseModal(true);
+    setIsLoadingRootCause(true);
+    setRootCauseError(null);
+    try {
+      const lastUserQuery = [...messages].reverse().find(m => m.role === 'user')?.content || query || "";
+      const res = await axios.post('http://localhost:8000/api/v1/analysis/root-cause', {
+        dataset_id: parseInt(selectedDataset, 10),
+        query: lastUserQuery
+      });
+      setRootCauseData(res.data);
+    } catch (err: any) {
+      setRootCauseError(err.response?.data?.detail || 'Root-cause driver decomposition failed.');
+    } finally {
+      setIsLoadingRootCause(false);
+    }
+  };
+
+  const handleOpenForecast = async (horizon = forecastHorizon) => {
+    if (!selectedDataset) return;
+    setShowForecastModal(true);
+    setIsLoadingForecast(true);
+    setForecastError(null);
+    try {
+      const res = await axios.post('http://localhost:8000/api/v1/analysis/forecast', {
+        dataset_id: parseInt(selectedDataset, 10),
+        horizon_days: horizon
+      });
+      setForecastData(res.data);
+    } catch (err: any) {
+      setForecastError(err.response?.data?.detail || 'Forecasting failed.');
+    } finally {
+      setIsLoadingForecast(false);
+    }
+  };
+
 
   const handleRunSimulation = async (simPrompt?: string) => {
     const targetQuery = simPrompt || simulationQuery;
@@ -1862,6 +1948,37 @@ const Dashboard: React.FC = () => {
                   <Download className="w-3.5 h-3.5 text-indigo-400" />
                   <span>{exportingFormat === 'pdf' ? 'Generating PDF...' : 'Download PDF Report'}</span>
                 </button>
+
+                {/* Pin to Executive Board Button */}
+                <button
+                  onClick={handlePinToBoard}
+                  disabled={isPinning}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 border border-purple-500/30 text-xs font-medium text-purple-300 hover:text-purple-200 transition-all disabled:opacity-50 cursor-pointer shadow-[0_0_12px_rgba(168,85,247,0.2)]"
+                  title="Pin this chart and insight to your persistent Executive Board"
+                >
+                  <Pin className="w-3.5 h-3.5 text-purple-400" />
+                  <span>{isPinning ? 'Pinning...' : 'Pin to Board'}</span>
+                </button>
+
+                {/* Root Cause Analysis Button */}
+                <button
+                  onClick={handleOpenRootCause}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/30 text-xs font-medium text-emerald-300 hover:text-emerald-200 transition-all cursor-pointer shadow-[0_0_12px_rgba(16,185,129,0.2)]"
+                  title="Perform automated Root-Cause Variance Driver Decomposition"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Why Did This Happen?</span>
+                </button>
+
+                {/* Predictive Forecast Button */}
+                <button
+                  onClick={() => handleOpenForecast()}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-xs font-medium text-cyan-300 hover:text-cyan-200 transition-all cursor-pointer shadow-[0_0_12px_rgba(6,182,212,0.2)]"
+                  title="Predict future trajectory with 80% & 95% confidence bands"
+                >
+                  <TrendingUp className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Predictive Forecast</span>
+                </button>
               </div>
 
               <div className="flex items-center gap-2">
@@ -2888,6 +3005,343 @@ in
                 className="px-5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition-all cursor-pointer"
               >
                 Done
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Floating Pin Toast */}
+      {pinToast && (
+        <div className="fixed top-5 right-5 z-50 bg-purple-600 text-white px-4 py-2.5 rounded-xl shadow-2xl backdrop-blur-md border border-purple-400/40 text-xs flex items-center gap-2 animate-bounce">
+          <Sparkles className="w-4 h-4 text-amber-300" />
+          <span>{pinToast}</span>
+        </div>
+      )}
+
+      {/* Root-Cause Driver Variance Modal */}
+      {showRootCauseModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+          <div className="glass-panel rounded-3xl border border-emerald-500/30 p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto space-y-5 shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white flex items-center gap-2">
+                    <span>Root-Cause Driver Variance Analysis</span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                      WHY DID THIS HAPPEN?
+                    </span>
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    Decomposing metric variance across dimensions to identify root drivers and negative drags
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowRootCauseModal(false)}
+                className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            {isLoadingRootCause ? (
+              <div className="h-64 flex flex-col items-center justify-center gap-3">
+                <div className="w-8 h-8 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+                <span className="text-xs text-slate-400">Decomposing variance factors across categorical dimensions...</span>
+              </div>
+            ) : rootCauseError ? (
+              <div className="p-4 bg-rose-950/40 border border-rose-800/60 rounded-xl text-rose-300 text-xs flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <span>{rootCauseError}</span>
+              </div>
+            ) : rootCauseData ? (
+              <div className="space-y-5">
+                {/* Variance Scorecard */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div className="p-3.5 rounded-xl bg-emerald-950/30 border border-emerald-800/50">
+                    <span className="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider block mb-1">
+                      Top Growth Drivers (Upward Lift)
+                    </span>
+                    <div className="space-y-1">
+                      {rootCauseData.top_positive?.map((d: any, idx: number) => (
+                        <div key={idx} className="flex items-center justify-between">
+                          <span className="text-slate-300 font-medium">{d.category}</span>
+                          <span className="text-emerald-400 font-mono font-bold">+{d.impact_pct}%</span>
+                        </div>
+                      ))}
+                      {(!rootCauseData.top_positive || rootCauseData.top_positive.length === 0) && (
+                        <span className="text-slate-500 italic text-[11px]">No positive variance drivers detected</span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-rose-950/30 border border-rose-800/50">
+                    <span className="text-[11px] font-semibold text-rose-400 uppercase tracking-wider block mb-1">
+                      Primary Negative Drags (Downward Drag)
+                    </span>
+                    <div className="space-y-1">
+                      {rootCauseData.top_negative?.map((d: any, idx: number) => (
+                        <div key={idx} className="flex items-center justify-between">
+                          <span className="text-slate-300 font-medium">{d.category}</span>
+                          <span className="text-rose-400 font-mono font-bold">{d.impact_pct}%</span>
+                        </div>
+                      ))}
+                      {(!rootCauseData.top_negative || rootCauseData.top_negative.length === 0) && (
+                        <span className="text-slate-500 italic text-[11px]">No negative drag segments detected</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Waterfall Decomposition Chart */}
+                <div className="p-4 rounded-2xl bg-slate-950/80 border border-white/10 space-y-3">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-semibold text-slate-300">
+                      Waterfall Variance Decomposition: <span className="text-emerald-400">{rootCauseData.metric_column}</span> by <span className="text-indigo-400">{rootCauseData.dimension_column}</span>
+                    </span>
+                    <span className="text-slate-500 text-[11px]">Benchmark: {rootCauseData.baseline_value}</span>
+                  </div>
+
+                  <div className="h-64">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={rootCauseData.waterfall_steps} margin={{ top: 15, right: 15, left: -10, bottom: 25 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                        <XAxis dataKey="name" stroke="#64748b" tick={{ fontSize: 10 }} angle={-25} textAnchor="end" />
+                        <YAxis stroke="#64748b" tick={{ fontSize: 10 }} />
+                        <RechartsTooltip
+                          contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '0.75rem', fontSize: '11px' }}
+                          formatter={(val: any, _name: any, item: any) => [
+                            `${val} (${item.payload.delta >= 0 ? '+' : ''}${item.payload.delta})`,
+                            'Value'
+                          ]}
+                        />
+                        <Bar dataKey="value" radius={[4, 4, 0, 0]}>
+                          {rootCauseData.waterfall_steps.map((entry: any, index: number) => (
+                            <Cell key={`cell-${index}`} fill={entry.color || '#6366f1'} />
+                          ))}
+                        </Bar>
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                {/* Executive Diagnosis */}
+                {rootCauseData.diagnosis && (
+                  <div className="p-4 rounded-2xl bg-indigo-950/30 border border-indigo-900/50 space-y-1.5">
+                    <span className="text-[11px] font-semibold text-indigo-400 uppercase tracking-wider block">
+                      Chief Data Officer Root-Cause Synthesis
+                    </span>
+                    <p className="text-xs text-slate-300 leading-relaxed whitespace-pre-line">
+                      {rootCauseData.diagnosis}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ) : null}
+
+            <div className="flex justify-end pt-2">
+              <button
+                onClick={() => setShowRootCauseModal(false)}
+                className="px-5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition-all cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Predictive ML Forecasting Modal */}
+      {showForecastModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+          <div className="glass-panel rounded-3xl border border-cyan-500/30 p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto space-y-5 shadow-[0_25px_60px_rgba(0,0,0,0.8)]">
+            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center text-cyan-400">
+                  <TrendingUp className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base font-bold text-white flex items-center gap-2">
+                    <span>Predictive ML Time-Series Forecasting</span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">
+                      HOLT-WINTERS MODEL
+                    </span>
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    Forward projections with dynamic 80% & 95% statistical confidence intervals
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowForecastModal(false)}
+                className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Horizon Controller Bar */}
+            <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs">
+              <div className="flex items-center gap-2">
+                <span className="text-slate-400 font-medium">Forecast Horizon:</span>
+                <span className="px-2.5 py-1 rounded-lg bg-cyan-950/80 border border-cyan-800/60 text-cyan-300 font-mono font-bold">
+                  {forecastHorizon} Periods / Days
+                </span>
+              </div>
+
+              {/* Preset Buttons */}
+              <div className="flex items-center gap-1.5">
+                {[14, 30, 60, 90, 180].map(h => (
+                  <button
+                    key={h}
+                    onClick={() => {
+                      setForecastHorizon(h);
+                      handleOpenForecast(h);
+                    }}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                      forecastHorizon === h
+                        ? 'bg-cyan-500 text-slate-950 shadow-md'
+                        : 'bg-white/5 hover:bg-white/10 text-slate-300'
+                    }`}
+                  >
+                    {h}d
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {isLoadingForecast ? (
+              <div className="h-64 flex flex-col items-center justify-center gap-3">
+                <div className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+                <span className="text-xs text-slate-400">Computing Holt's trend smoothing and error variance bands...</span>
+              </div>
+            ) : forecastError ? (
+              <div className="p-4 bg-rose-950/40 border border-rose-800/60 rounded-xl text-rose-300 text-xs flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <span>{forecastError}</span>
+              </div>
+            ) : forecastData ? (
+              <div className="space-y-5">
+                {/* Metric Summary Cards */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
+                  <div className="p-3.5 rounded-xl bg-slate-900 border border-white/10">
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Projected End Target</span>
+                    <span className="text-base font-bold text-cyan-300 font-mono mt-0.5 block">
+                      {forecastData.projected_end}
+                    </span>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-slate-900 border border-white/10">
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Expected Change</span>
+                    <span className={`text-base font-bold font-mono mt-0.5 block ${
+                      forecastData.growth_pct >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                    }`}>
+                      {forecastData.growth_pct >= 0 ? '+' : ''}{forecastData.growth_pct}%
+                    </span>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-slate-900 border border-white/10">
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Trend Direction</span>
+                    <span className="text-base font-bold text-amber-300 mt-0.5 block truncate">
+                      {forecastData.velocity}
+                    </span>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl bg-slate-900 border border-white/10">
+                    <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Model Confidence</span>
+                    <span className="text-base font-bold text-indigo-300 font-mono mt-0.5 block">
+                      {forecastData.confidence_rating}%
+                    </span>
+                  </div>
+                </div>
+
+                {/* Forecast Time-Series Chart */}
+                <div className="p-4 rounded-2xl bg-slate-950/80 border border-white/10 space-y-3">
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="font-semibold text-slate-300">
+                      Historical Trend vs Projected Horizon: <span className="text-cyan-400">{forecastData.metric_column}</span>
+                    </span>
+                    <div className="flex items-center gap-3 text-[11px]">
+                      <span className="flex items-center gap-1.5 text-cyan-400">
+                        <span className="w-2.5 h-0.5 bg-cyan-400 inline-block" /> Historical Actual
+                      </span>
+                      <span className="flex items-center gap-1.5 text-emerald-400">
+                        <span className="w-2.5 h-0.5 border-t border-dashed border-emerald-400 inline-block" /> Projected Forecast
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="h-64">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <ComposedChart data={forecastData.series} margin={{ top: 15, right: 15, left: -10, bottom: 25 }}>
+                        <defs>
+                          <linearGradient id="confidenceBand" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor="#06b6d4" stopOpacity={0.25} />
+                            <stop offset="95%" stopColor="#06b6d4" stopOpacity={0.05} />
+                          </linearGradient>
+                        </defs>
+                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+                        <XAxis dataKey="date" stroke="#64748b" tick={{ fontSize: 10 }} angle={-25} textAnchor="end" />
+                        <YAxis stroke="#64748b" tick={{ fontSize: 10 }} />
+                        <RechartsTooltip
+                          contentStyle={{ backgroundColor: '#0f172a', borderColor: '#334155', borderRadius: '0.75rem', fontSize: '11px' }}
+                        />
+                        {/* 95% Confidence Band Area */}
+                        <Area
+                          type="monotone"
+                          dataKey="upper_95"
+                          stroke="transparent"
+                          fill="url(#confidenceBand)"
+                          name="95% Upper Band"
+                        />
+                        {/* Historical Actual Line */}
+                        <Line
+                          type="monotone"
+                          dataKey="actual"
+                          stroke="#38bdf8"
+                          strokeWidth={2.5}
+                          dot={{ r: 2, fill: '#38bdf8' }}
+                          name="Historical Actual"
+                        />
+                        {/* Projected Forecast Line */}
+                        <Line
+                          type="monotone"
+                          dataKey="forecast"
+                          stroke="#10b981"
+                          strokeWidth={2.5}
+                          strokeDasharray="4 4"
+                          dot={{ r: 3, fill: '#10b981' }}
+                          name="Predicted Forecast"
+                        />
+                      </ComposedChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
+
+                {/* AI Executive CFO Summary */}
+                {forecastData.ai_summary && (
+                  <div className="p-4 rounded-2xl bg-cyan-950/30 border border-cyan-900/50 space-y-1.5">
+                    <span className="text-[11px] font-semibold text-cyan-400 uppercase tracking-wider block">
+                      Chief Financial Officer Predictive Trajectory
+                    </span>
+                    <p className="text-xs text-slate-300 leading-relaxed">
+                      {forecastData.ai_summary}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ) : null}
+
+            <div className="flex justify-end pt-2">
+              <button
+                onClick={() => setShowForecastModal(false)}
+                className="px-5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition-all cursor-pointer"
+              >
+                Close
               </button>
             </div>
           </div>
